@@ -1,10 +1,10 @@
 """
-Socratic Pygame skeleton: 10 moving squares (stubs only)
+Socratic Pygame skeleton: moving squares
 
-This file contains stub functions with TODOs and guiding questions
-so you can implement the full behaviour step-by-step.
-
-Keep changes minimal — implement one TODO at a time and run interactively.
+This file contains the full implementation with:
+- size-based max speed
+- jitter
+- rotation
 """
 
 import random
@@ -12,7 +12,7 @@ from typing import List, Dict, Tuple
 
 import pygame
 
-# === SLIDE REQUIREMENTS ===
+# Configuration constants
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 FPS = 60
@@ -25,6 +25,9 @@ GLOBAL_MAX_SPEED = 300
 JITTER_STRENGTH = 20
 JITTER_INTERVAL = 0.2
 
+ROTATION_SPEED_MIN = 30
+ROTATION_SPEED_MAX = 180
+
 
 def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock"]:
     pygame.init()
@@ -35,12 +38,11 @@ def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock"]:
 
 
 def create_squares() -> List[Dict]:
-    """Create squares with size, speed, and color."""
-    squares = []
+    squares: List[Dict] = []
     for _ in range(NUM_SQUARES):
+
         size = random.randint(MIN_SIZE, MAX_SIZE)
 
-        # max speed = f(size) (bigger = slower)
         max_speed = GLOBAL_MAX_SPEED * (MIN_SIZE / size)
 
         vx = random.uniform(-max_speed, max_speed)
@@ -48,6 +50,9 @@ def create_squares() -> List[Dict]:
 
         x = random.uniform(0, SCREEN_WIDTH - size)
         y = random.uniform(0, SCREEN_HEIGHT - size)
+
+        rotation = random.uniform(0, 360)
+        rotation_speed = random.uniform(ROTATION_SPEED_MIN, ROTATION_SPEED_MAX)
 
         color = (
             random.randint(50, 255),
@@ -63,13 +68,15 @@ def create_squares() -> List[Dict]:
             "size": size,
             "max_speed": max_speed,
             "time_since_jitter": 0.0,
+            "rotation": rotation,
+            "rotation_speed": rotation_speed,
             "color": color,
         })
+
     return squares
 
 
 def handle_events() -> bool:
-    """Return True if user wants to quit."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return True
@@ -79,23 +86,25 @@ def handle_events() -> bool:
 
 
 def update_squares(squares: List[Dict], dt: float) -> None:
-    """Move squares, apply jitter, clamp speed, bounce."""
     for sq in squares:
-        # === SLIDE FEATURE: JITTER ===
+
+        # rotation update
+        sq["rotation"] = (sq["rotation"] + sq["rotation_speed"] * dt) % 360
+
+        # jitter
         sq["time_since_jitter"] += dt
         if sq["time_since_jitter"] >= JITTER_INTERVAL:
             sq["time_since_jitter"] = 0.0
             sq["vx"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
             sq["vy"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
 
-            # clamp to max_speed
             speed = (sq["vx"]**2 + sq["vy"]**2) ** 0.5
             if speed > sq["max_speed"]:
                 scale = sq["max_speed"] / speed
                 sq["vx"] *= scale
                 sq["vy"] *= scale
 
-        # move
+        # movement
         sq["x"] += sq["vx"] * dt
         sq["y"] += sq["vy"] * dt
 
@@ -119,11 +128,19 @@ def update_squares(squares: List[Dict], dt: float) -> None:
 
 
 def draw_squares(screen: "pygame.Surface", squares: List[Dict]) -> None:
-    """Draw squares using their individual sizes."""
     screen.fill((0, 0, 0))
+
     for sq in squares:
-        rect = pygame.Rect(int(sq["x"]), int(sq["y"]), sq["size"], sq["size"])
-        pygame.draw.rect(screen, sq["color"], rect)
+        size = sq["size"]
+
+        surf = pygame.Surface((size, size), pygame.SRCALPHA)
+        pygame.draw.rect(surf, sq["color"], (0, 0, size, size))
+
+        rotated = pygame.transform.rotate(surf, sq["rotation"])
+        rect = rotated.get_rect(center=(sq["x"] + size/2, sq["y"] + size/2))
+
+        screen.blit(rotated, rect)
+
     pygame.display.flip()
 
 
