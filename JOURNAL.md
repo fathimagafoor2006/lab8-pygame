@@ -33,3 +33,8 @@
 - **Hook Version**: 1.02
 - **Date**: 30-03-2026 11:12
 - **Prompt**: first init_pygame() ,create_squares(),handle_events(),update_squares(),draw_squares,run()
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 30-03-2026 13:38
+- **Prompt**: explain what happens in pygame when i change FPS =  60 to FPS =0 why does the animation become ustable and the CPU usgae go to 100 percentage give me a simple explanation
