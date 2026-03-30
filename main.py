@@ -16,6 +16,9 @@ import pygame
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 FPS = 60
+# When FPS = 0, the loop is not limited.
+# The game runs as fast as the CPU can go  very high CPU usage and unstable animation.
+
 
 NUM_SQUARES = 100
 MIN_SIZE = 10
