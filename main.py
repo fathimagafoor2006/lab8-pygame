@@ -12,16 +12,21 @@ from typing import List, Dict, Tuple
 
 import pygame
 
-# Configuration constants (adjust when implementing)
+# === SLIDE REQUIREMENTS ===
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-SQUARE_SIZE = 30
-NUM_SQUARES = 10
 FPS = 60
+
+NUM_SQUARES = 100
+MIN_SIZE = 10
+MAX_SIZE = 40
+GLOBAL_MAX_SPEED = 300
+
+JITTER_STRENGTH = 20
+JITTER_INTERVAL = 0.2
 
 
 def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock"]:
-    """Initialize pygame and return (screen, clock)."""
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Lab8 – Moving Squares")
@@ -30,68 +35,99 @@ def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock"]:
 
 
 def create_squares() -> List[Dict]:
-    """Return a list of square data structures."""
-    squares: List[Dict] = []
+    """Create squares with size, speed, and color."""
+    squares = []
     for _ in range(NUM_SQUARES):
-        x = random.uniform(0, SCREEN_WIDTH - SQUARE_SIZE)
-        y = random.uniform(0, SCREEN_HEIGHT - SQUARE_SIZE)
-        # Small random velocities
-        vx = random.uniform(-200, 200)
-        vy = random.uniform(-200, 200)
+        size = random.randint(MIN_SIZE, MAX_SIZE)
+
+        # max speed = f(size) (bigger = slower)
+        max_speed = GLOBAL_MAX_SPEED * (MIN_SIZE / size)
+
+        vx = random.uniform(-max_speed, max_speed)
+        vy = random.uniform(-max_speed, max_speed)
+
+        x = random.uniform(0, SCREEN_WIDTH - size)
+        y = random.uniform(0, SCREEN_HEIGHT - size)
+
         color = (
             random.randint(50, 255),
             random.randint(50, 255),
             random.randint(50, 255),
         )
-        squares.append({"x": x, "y": y, "vx": vx, "vy": vy, "color": color})
+
+        squares.append({
+            "x": x,
+            "y": y,
+            "vx": vx,
+            "vy": vy,
+            "size": size,
+            "max_speed": max_speed,
+            "time_since_jitter": 0.0,
+            "color": color,
+        })
     return squares
 
 
 def handle_events() -> bool:
-    """Process pygame events and return True if the app should quit."""
+    """Return True if user wants to quit."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             return True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                return True
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            return True
     return False
 
 
 def update_squares(squares: List[Dict], dt: float) -> None:
-    """Update square positions in-place using delta time `dt` (seconds)."""
+    """Move squares, apply jitter, clamp speed, bounce."""
     for sq in squares:
+        # === SLIDE FEATURE: JITTER ===
+        sq["time_since_jitter"] += dt
+        if sq["time_since_jitter"] >= JITTER_INTERVAL:
+            sq["time_since_jitter"] = 0.0
+            sq["vx"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
+            sq["vy"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
+
+            # clamp to max_speed
+            speed = (sq["vx"]**2 + sq["vy"]**2) ** 0.5
+            if speed > sq["max_speed"]:
+                scale = sq["max_speed"] / speed
+                sq["vx"] *= scale
+                sq["vy"] *= scale
+
+        # move
         sq["x"] += sq["vx"] * dt
         sq["y"] += sq["vy"] * dt
 
-        # Bounce on left/right
+        size = sq["size"]
+
+        # bounce left/right
         if sq["x"] < 0:
             sq["x"] = 0
             sq["vx"] *= -1
-        elif sq["x"] + SQUARE_SIZE > SCREEN_WIDTH:
-            sq["x"] = SCREEN_WIDTH - SQUARE_SIZE
+        elif sq["x"] + size > SCREEN_WIDTH:
+            sq["x"] = SCREEN_WIDTH - size
             sq["vx"] *= -1
 
-        # Bounce on top/bottom
+        # bounce top/bottom
         if sq["y"] < 0:
             sq["y"] = 0
             sq["vy"] *= -1
-        elif sq["y"] + SQUARE_SIZE > SCREEN_HEIGHT:
-            sq["y"] = SCREEN_HEIGHT - SQUARE_SIZE
+        elif sq["y"] + size > SCREEN_HEIGHT:
+            sq["y"] = SCREEN_HEIGHT - size
             sq["vy"] *= -1
 
 
 def draw_squares(screen: "pygame.Surface", squares: List[Dict]) -> None:
-    """Draw all squares to the provided `screen` surface."""
+    """Draw squares using their individual sizes."""
     screen.fill((0, 0, 0))
     for sq in squares:
-        rect = pygame.Rect(int(sq["x"]), int(sq["y"]), SQUARE_SIZE, SQUARE_SIZE)
+        rect = pygame.Rect(int(sq["x"]), int(sq["y"]), sq["size"], sq["size"])
         pygame.draw.rect(screen, sq["color"], rect)
     pygame.display.flip()
 
 
 def run() -> None:
-    """Main entry: wire initialization, creation, main loop, and cleanup."""
     screen, clock = init_pygame()
     squares = create_squares()
 
