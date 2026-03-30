@@ -38,3 +38,8 @@
 - **Hook Version**: 1.02
 - **Date**: 30-03-2026 13:38
 - **Prompt**: explain what happens in pygame when i change FPS =  60 to FPS =0 why does the animation become ustable and the CPU usgae go to 100 percentage give me a simple explanation
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 30-03-2026 13:48
+- **Prompt**: update my README file to document all the features i implemented from scratch ,,size based max speed,random jitter,rotation,FPS experiment experiment(FPS = 0),add a clear section for each feature and also includea short explanation of what happens when FPS is set to 0 and why the cpu usage spikes
