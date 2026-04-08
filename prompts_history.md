@@ -20,3 +20,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 30-03-2026 13:48
 - **Prompt**: update my README file to document all the features i implemented from scratch ,,size based max speed,random jitter,rotation,FPS experiment experiment(FPS = 0),add a clear section for each feature and also includea short explanation of what happens when FPS is set to 0 and why the cpu usage spikes
 
+### 08-04-2026 19:55
+- **Prompt**: review my draw_squares function and verify that FPS, particle count, and avg x are computed and displayed correctly,suggest improvements if needed
+
