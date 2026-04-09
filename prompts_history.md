@@ -38,3 +38,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 09-04-2026 14:57
 - **Prompt**: given my square sizes and speeds, what values should I use for epsilon, arrow length, and flee strength to avoid jitter or snapping?
 
+### 09-04-2026 15:02
+- **Prompt**: given these recommended values, what is the most realistic way to handle fleeing when squares overlap, and how should i integrate it cleanly into my update loop?
+
