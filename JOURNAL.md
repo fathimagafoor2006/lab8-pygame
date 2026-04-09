@@ -79,3 +79,8 @@
 - **Hook Version**: 1.02
 - **Date**: 09-04-2026 14:42
 - **Prompt**: can you help me visualize the overlap region and the resting flee or seperation vector using simple pygame lines so i can compare different approaches??
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 09-04-2026 14:57
+- **Prompt**: given my square sizes and speeds, what values should I use for epsilon, arrow length, and flee strength to avoid jitter or snapping?
