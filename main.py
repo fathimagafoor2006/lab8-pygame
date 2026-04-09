@@ -4,7 +4,7 @@ Socratic Pygame skeleton: moving squares
 This file contains the full implementation with:
 - size-based max speed
 - jitter
-- rotation
+- fleeing
 """
 
 import random
@@ -16,11 +16,9 @@ import pygame
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 FPS = 60
-# When FPS = 0, the loop is not limited.
-# The game runs as fast as the CPU can go  very high CPU usage and unstable animation.
+FLEE_STRENGTH = 200
 
-
-NUM_SQUARES = 100
+NUM_SQUARES = 20 
 MIN_SIZE = 10
 MAX_SIZE = 40
 GLOBAL_MAX_SPEED = 300
@@ -28,16 +26,14 @@ GLOBAL_MAX_SPEED = 300
 JITTER_STRENGTH = 20
 JITTER_INTERVAL = 0.2
 
-ROTATION_SPEED_MIN = 30
-ROTATION_SPEED_MAX = 180
-
 
 def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock"]:
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("Lab8 – Moving Squares")
     clock = pygame.time.Clock()
-    return screen, clock
+    font = pygame.font.SysFont(None, 24)
+    return screen, clock, font
 
 
 def create_squares() -> List[Dict]:
@@ -45,7 +41,6 @@ def create_squares() -> List[Dict]:
     for _ in range(NUM_SQUARES):
 
         size = random.randint(MIN_SIZE, MAX_SIZE)
-
         max_speed = GLOBAL_MAX_SPEED * (MIN_SIZE / size)
 
         vx = random.uniform(-max_speed, max_speed)
@@ -53,9 +48,6 @@ def create_squares() -> List[Dict]:
 
         x = random.uniform(0, SCREEN_WIDTH - size)
         y = random.uniform(0, SCREEN_HEIGHT - size)
-
-        rotation = random.uniform(0, 360)
-        rotation_speed = random.uniform(ROTATION_SPEED_MIN, ROTATION_SPEED_MAX)
 
         color = (
             random.randint(50, 255),
@@ -71,8 +63,6 @@ def create_squares() -> List[Dict]:
             "size": size,
             "max_speed": max_speed,
             "time_since_jitter": 0.0,
-            "rotation": rotation,
-            "rotation_speed": rotation_speed,
             "color": color,
         })
 
@@ -88,11 +78,61 @@ def handle_events() -> bool:
     return False
 
 
+def distance(ax, ay, bx, by):
+    dx = bx - ax
+    dy = by - ay
+    return (dx*dx + dy*dy) ** 0.5
+
+
+def find_closest_big(square, squares):
+    closest = None
+    closest_dist = float("inf")
+
+    for other in squares:
+        if other is square:
+            continue
+        if other["size"] <= square["size"]:
+            continue
+
+        d = distance(square["x"], square["y"], other["x"], other["y"])
+        if d < closest_dist:
+            closest_dist = d
+            closest = other
+
+    return closest
+
+
+def compute_flee_vector(small, big):
+    dx = small["x"] - big["x"]
+    dy = small["y"] - big["y"]
+
+    dist = (dx*dx + dy*dy) ** 0.5
+    if dist == 0:
+        return 0, 0
+
+    nx = dx / dist
+    ny = dy / dist
+
+    fx = nx * FLEE_STRENGTH
+    fy = ny * FLEE_STRENGTH
+    return fx, fy
+
+
 def update_squares(squares: List[Dict], dt: float) -> None:
     for sq in squares:
 
-        # rotation update
-        sq["rotation"] = (sq["rotation"] + sq["rotation_speed"] * dt) % 360
+        # fleeing behavior
+        closest_big = find_closest_big(sq, squares)
+        if closest_big is not None:
+            fx, fy = compute_flee_vector(sq, closest_big)
+            sq["vx"] += fx * dt
+            sq["vy"] += fy * dt
+
+            speed = (sq["vx"]**2 + sq["vy"]**2) ** 0.5
+            if speed > sq["max_speed"]:
+                scale = sq["max_speed"] / speed
+                sq["vx"] *= scale
+                sq["vy"] *= scale
 
         # jitter
         sq["time_since_jitter"] += dt
@@ -130,7 +170,7 @@ def update_squares(squares: List[Dict], dt: float) -> None:
             sq["vy"] *= -1
 
 
-def draw_squares(screen: "pygame.Surface", squares: List[Dict]) -> None:
+def draw_squares(screen, squares, font, clock):
     screen.fill((0, 0, 0))
 
     for sq in squares:
@@ -139,16 +179,26 @@ def draw_squares(screen: "pygame.Surface", squares: List[Dict]) -> None:
         surf = pygame.Surface((size, size), pygame.SRCALPHA)
         pygame.draw.rect(surf, sq["color"], (0, 0, size, size))
 
-        rotated = pygame.transform.rotate(surf, sq["rotation"])
-        rect = rotated.get_rect(center=(sq["x"] + size/2, sq["y"] + size/2))
+        # no rotation
+        rect = surf.get_rect(topleft=(sq["x"], sq["y"]))
+        screen.blit(surf, rect)
 
-        screen.blit(rotated, rect)
+    particle_count = len(squares)
+    avg_x = sum(sq["x"] for sq in squares) / particle_count
+    fps = int(clock.get_fps())
+
+    text_surface = font.render(
+        f"FPS: {fps}   Particles: {particle_count}   Avg X: {int(avg_x)}",
+        True,
+        (255, 255, 255)
+    )
+    screen.blit(text_surface, (10, 10))
 
     pygame.display.flip()
 
 
 def run() -> None:
-    screen, clock = init_pygame()
+    screen, clock, font = init_pygame()
     squares = create_squares()
 
     running = True
@@ -159,7 +209,7 @@ def run() -> None:
             continue
 
         update_squares(squares, dt)
-        draw_squares(screen, squares)
+        draw_squares(screen, squares, font, clock)
 
     pygame.quit()
 
