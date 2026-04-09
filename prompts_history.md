@@ -23,3 +23,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 08-04-2026 19:55
 - **Prompt**: review my draw_squares function and verify that FPS, particle count, and avg x are computed and displayed correctly,suggest improvements if needed
 
+### 09-04-2026 14:30
+- **Prompt**: expalin the math behind my fleeing algorithm and wheather the normalization step is coreect
+
