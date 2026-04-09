@@ -69,3 +69,8 @@
 - **Hook Version**: 1.02
 - **Date**: 09-04-2026 14:35
 - **Prompt**: given your explanation ,how would the fleeing behavior change if i used centre positions instead of top left coordinates? would it improve accuracy or stability??
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 09-04-2026 14:39
+- **Prompt**: given the centre based approach how would the flee vector behave when squares overlap or nearly overlap?? can you explain
