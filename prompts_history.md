@@ -32,3 +32,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 09-04-2026 14:39
 - **Prompt**: given the centre based approach how would the flee vector behave when squares overlap or nearly overlap?? can you explain
 
+### 09-04-2026 14:42
+- **Prompt**: can you help me visualize the overlap region and the resting flee or seperation vector using simple pygame lines so i can compare different approaches??
+
