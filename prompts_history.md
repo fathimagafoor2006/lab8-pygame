@@ -53,3 +53,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 09-04-2026 16:27
 - **Prompt**: Can you update my README.md based on what my project includes (moving squares, size based speed, fleeing, jitter, bouncing, FPS, number of squares, and average X) and make it simple and clear?
 
+### 13-04-2026 11:24
+- **Prompt**: Activate the journal logger
+

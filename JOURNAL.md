@@ -120,3 +120,8 @@
 - **Socratic Mode**: ON
 - **Changes Made**: Updated `README.md` with a concise project overview, explicit list of behaviors (size-based speed, fleeing, jitter, bouncing), diagnostics shown (FPS, particle count, average X), setup/run instructions, and tuning notes.
 - **Context and Reasons for Changes**: User requested a simple, clear README describing implemented features so the project is easier to understand and run.
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 13-04-2026 11:24
+- **Prompt**: Activate the journal logger
