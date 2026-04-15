@@ -57,4 +57,43 @@ Files of interest
 - `main.py`: simulation code and tunable parameters.
 - `requirements.txt`: project dependencies.
 
+Lifespan + rebirth
+------------------
+- Each square starts with `age = 0.0` and a random `life_span` between `30.0` and `180.0` seconds.
+- During each update, the square's age increases by `dt`, so lifespan progression stays tied to real frame time.
+- When `age >= life_span`, the square is marked for removal after the update loop finishes.
+- Dead squares are removed safely using reversed index popping, then replaced with new squares so the total count stays constant.
+- New squares get fresh random size, speed, position, color, and lifespan values.
+
+Project structure
+-----------------
+- `main.py`: the complete simulation and rendering loop.
+- `requirements.txt`: Python dependencies needed to run the project.
+- `README.md`: setup notes, features, and project overview.
+- `JOURNAL.md`: chronological log of development updates.
+- `docs/code_explorer.html`: generated learning dashboard for the codebase.
+
+```text
+lab8-pygame/
+├── .github/
+│   ├── agents/
+│   │   ├── code-explorer-template.html
+│   │   ├── code-explorer.agent.md
+│   │   └── journal-logger.agent.md
+│   ├── hooks/
+│   └── copilot-instructions.md
+├── .venv/
+├── docs/
+│   └── code_explorer.html
+├── .gitignore
+├── copilot.usage.png
+├── JOURNAL.md
+├── main.py
+├── MY_NOTES.md
+├── prompts_history.md
+├── README.md
+├── REPORT.md
+└── requirements.txt
+```
+
 
