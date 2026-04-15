@@ -65,3 +65,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 13-04-2026 11:27
 - **Prompt**: Generate a code explorer learning dashboard site for this workspace (lab8-pygame). Requirements: - Analyze all Python source files in the repository. - Produce a single, complete, runnable HTML dashboard with sections for architecture overview, module map, core function/class explanations, data flow notes, and suggested improvements. - Include Mermaid diagrams where useful. - Include a small CSS and JS layer for readability/interactivity if needed. - Save output files directly into the repository under a sensible folder name (e.g., code-explorer/). - Ensure the generated site can be opened locally without a build step. - Return a concise report with: files created/modified, brief summary of content, and how to open the site.
 
+### 15-04-2026 18:08
+- **Prompt**: regenerate the code explorer site
+
