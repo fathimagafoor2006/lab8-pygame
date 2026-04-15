@@ -89,3 +89,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 18:40
 - **Prompt**: is there a cleaner way to structure the rebirth logic without changing the behaviour
 
+### 15-04-2026 18:41
+- **Prompt**: does my lifespan logic interact correctly with fleeing and jitter?
+
