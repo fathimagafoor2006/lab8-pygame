@@ -86,3 +86,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 18:37
 - **Prompt**: how can i make the lifespan system more stable if dt spikes?
 
+### 15-04-2026 18:40
+- **Prompt**: is there a cleaner way to structure the rebirth logic without changing the behaviour
+
