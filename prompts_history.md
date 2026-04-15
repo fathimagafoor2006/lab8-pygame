@@ -83,3 +83,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 18:36
 - **Prompt**: how could i visualize which squres are about to die?
 
+### 15-04-2026 18:37
+- **Prompt**: how can i make the lifespan system more stable if dt spikes?
+
