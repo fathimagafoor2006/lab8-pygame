@@ -71,3 +71,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 18:08
 - **Prompt**: Regenerate the code explorer site for the current workspace at c:\Users\fathi\Desktop\lab8-pygame. Analyze the Python source files and produce/update the learning dashboard HTML output in docs/code_explorer.html. Keep it a single self-contained HTML file with clear sections, architecture notes, and visual diagrams where appropriate. Write the file directly in the workspace. Return a concise summary of what was regenerated and any notable analysis highlights.
 
+### 15-04-2026 18:26
+- **Prompt**: review only the life span and rebirth logic in my code. check whether age is updated correctly with dt, whether squares are removed safely, and whether new squares are spawned without causing list mutation issues. identify any edge cases or timing bugs i might have missed.
+
