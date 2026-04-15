@@ -205,3 +205,8 @@
 - **Hook Version**: 1.02
 - **Date**: 15-04-2026 18:34
 - **Prompt**: how can i test that rebirth is working correctly?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 15-04-2026 18:36
+- **Prompt**: how could i visualize which squres are about to die?
