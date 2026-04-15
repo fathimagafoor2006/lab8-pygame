@@ -32,5 +32,10 @@ speed limits keep things under control
 bouncing keeps everything inside the screen
 So,everything together creates the simulation
 
+## LIFESPAN+REBIRTH FEATURE
+
+To implement this feature, I added two new attributes to each square: age and life_span. The life_span is a random value between 30 and 180 seconds. Each square starts with age = 0.
+During each update, I increment the age using the delta time (dt). When a square’s age becomes greater than or equal to its life span, I mark it as dead.
+After updating all squares, I remove the dead ones and immediately create new squares to replace them. The new squares get a new random position, speed, color, and life span. This keeps the total number of squares constant and simulates a cycle of life, death, and rebirth.
 
 
