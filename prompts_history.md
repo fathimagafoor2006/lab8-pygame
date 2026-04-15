@@ -77,3 +77,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 18:27
 - **Prompt**: review only the life span and rebirth logic in my code. check whether age is updated correctly with dt, whether squares are removed safely, and whether new squares are spawned without causing list mutation issues. identify any edge cases or timing bugs i might have missed.
 
+### 15-04-2026 18:34
+- **Prompt**: how can i test that rebirth is working correctly?
+
