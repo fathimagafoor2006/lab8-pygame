@@ -225,3 +225,8 @@
 - **Hook Version**: 1.02
 - **Date**: 15-04-2026 18:41
 - **Prompt**: does my lifespan logic interact correctly with fleeing and jitter?
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 15-04-2026 19:23
+- **Prompt**: Update my README.md by adding the lifespan + rebirth behavior and the project structure section, without changing anything else

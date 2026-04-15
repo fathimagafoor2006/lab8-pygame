@@ -92,3 +92,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 18:41
 - **Prompt**: does my lifespan logic interact correctly with fleeing and jitter?
 
+### 15-04-2026 19:23
+- **Prompt**: Update my README.md by adding the lifespan + rebirth behavior and the project structure section, without changing anything else
+
