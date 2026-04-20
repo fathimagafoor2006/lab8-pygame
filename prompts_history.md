@@ -95,3 +95,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 15-04-2026 19:23
 - **Prompt**: Update my README.md by adding the lifespan + rebirth behavior and the project structure section, without changing anything else
 
+### 20-04-2026 14:07
+- **Prompt**: Regenerate the code explorer site for this project
+
