@@ -65,6 +65,14 @@ Lifespan + rebirth
 - Dead squares are removed safely using reversed index popping, then replaced with new squares so the total count stays constant.
 - New squares get fresh random size, speed, position, color, and lifespan values.
 
+Chasing behavior
+----------------
+-Bigger squares now look for the closest smaller square and move toward it.
+-Chasing is handled separately from fleeing so both behaviors can happen at the same time.
+-This creates a simple predator–prey effect: large squares hunt, small squares run.
+-The chasing force is calculated using a direction vector toward the smaller square.
+-This makes the movement feel more dynamic and alive.
+
 Project structure
 -----------------
 - `main.py`: the complete simulation and rendering loop.
