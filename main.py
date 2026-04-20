@@ -112,6 +112,23 @@ def find_closest_big(square: Dict, squares: List[Dict]) -> Dict | None:
 
     return closest
 
+def find_closest_small(square: Dict, squares: List[Dict]) -> Dict | None:
+    closest = None
+    closest_dist = float("inf")
+
+    for other in squares:
+        if other is square:
+            continue
+        if other["size"] >= square["size"]:
+            continue  
+
+        d = distance(square["x"], square["y"], other["x"], other["y"])
+        if d < closest_dist:
+            closest_dist = d
+            closest = other
+
+    return closest
+
 
 def compute_flee_vector(small: Dict, big: Dict) -> Tuple[float, float]:
     dx = small["x"] - big["x"]
@@ -128,6 +145,20 @@ def compute_flee_vector(small: Dict, big: Dict) -> Tuple[float, float]:
     fy = ny * FLEE_STRENGTH
     return fx, fy
 
+def compute_chase_vector(big: Dict, small: Dict) -> Tuple[float, float]:
+    dx = small["x"] - big["x"]
+    dy = small["y"] - big["y"]
+
+    dist = (dx * dx + dy * dy) ** 0.5
+    if dist == 0:
+        return 0.0, 0.0
+
+    nx = dx / dist
+    ny = dy / dist
+
+    fx = nx * FLEE_STRENGTH  
+    fy = ny * FLEE_STRENGTH
+    return fx, fy
 
 def update_squares(squares: List[Dict], dt: float) -> None:
     dead_indices: List[int] = []
@@ -145,6 +176,18 @@ def update_squares(squares: List[Dict], dt: float) -> None:
                 scale = sq["max_speed"] / speed
                 sq["vx"] *= scale
                 sq["vy"] *= scale
+            # chasing behaviour
+            closest_small = find_closest_small(sq, squares)
+            if closest_small is not None:
+                fx, fy = compute_chase_vector(sq, closest_small)
+                sq["vx"] += fx * dt
+                sq["vy"] += fy * dt
+
+                speed = (sq["vx"] ** 2+ sq["vy"] ** 2) **0.5
+                if speed > sq["max_speed"]:
+                    scale = sq["max_speed"] / speed
+                    sq["vx"] *= scale
+                    sq["vy"] *= scale
 
         # jitter
         sq["time_since_jitter"] += dt

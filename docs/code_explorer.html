@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -23,44 +23,30 @@
 body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; }
 a { color: var(--accent); }
 a:hover { text-decoration: underline; }
-
 header { padding: 1.5rem 2rem; border-bottom: 1px solid #3a3a55; background: var(--surface); }
 header h1 { font-size: 1.4rem; color: var(--accent); letter-spacing: -0.3px; }
 header p { color: var(--muted); font-size: 0.88rem; margin-top: 0.2rem; }
 header .file-badge { display: inline-block; background: var(--surface2); border-radius: 4px; padding: 0.1rem 0.5rem; font-family: var(--mono); font-size: 0.8rem; color: var(--yellow); margin-top: 0.3rem; }
-
-/* Tab navigation */
 .tab-nav { display: flex; padding: 0 2rem; background: var(--surface); border-bottom: 1px solid #3a3a55; flex-wrap: wrap; gap: 0; }
 .tab-btn { padding: 0.75rem 1.2rem; cursor: pointer; border: none; background: none; color: var(--muted); font-size: 0.88rem; border-bottom: 2px solid transparent; transition: all 0.18s; white-space: nowrap; }
 .tab-btn:hover { color: var(--text); }
 .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
-
-/* Tab panels */
 .tab-panel { display: none; padding: 2rem; max-width: 1280px; margin: 0 auto; }
 .tab-panel.active { display: block; }
-
-/* Cards */
 .card { background: var(--surface); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid #3a3a55; }
 .card h3 { color: var(--accent); margin-bottom: 0.6rem; font-size: 1rem; }
-
-/* Two-column */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
-
-/* Architecture sub-tabs */
 .arch-subnav { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 .arch-btn { padding: 0.35rem 0.85rem; border-radius: 20px; border: 1px solid #444; background: none; color: var(--muted); cursor: pointer; font-size: 0.82rem; transition: all 0.18s; }
 .arch-btn:hover { border-color: var(--accent); color: var(--text); }
 .arch-btn.active { background: var(--accent); color: #1e1e2e; border-color: var(--accent); font-weight: 600; }
 .arch-panel { display: none; }
 .arch-panel.active { display: block; }
-
 .diag-container { background: var(--surface2); border-radius: var(--radius); padding: 1.5rem; min-height: 280px; overflow-x: auto; display: flex; justify-content: center; align-items: flex-start; }
 .diag-container svg { max-width: 100%; height: auto; }
 .diag-title { color: var(--accent); font-size: 1.05rem; font-weight: 600; margin-bottom: 0.75rem; }
 .diag-caption { color: var(--muted); font-size: 0.82rem; margin-top: 0.75rem; font-style: italic; border-left: 2px solid #444; padding-left: 0.6rem; }
-
-/* Patterns */
 .pattern-card { background: var(--surface2); border-radius: var(--radius); padding: 1.2rem; margin-bottom: 1rem; border: 1px solid #3a3a55; }
 .pattern-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
 .pattern-icon { font-size: 1.1rem; }
@@ -68,28 +54,22 @@ header .file-badge { display: inline-block; background: var(--surface2); border-
 .pattern-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.75rem; }
 .pattern-layers { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.6rem; }
 .layer { font-size: 0.8rem; padding: 0.28rem 0.6rem; border-radius: 4px; line-height: 1.4; }
-.layer-basics   { background: #1e3a2a; color: #a6e3a1; }
-.layer-eng      { background: #3a2e1a; color: #f9e2af; }
-.layer-arch     { background: #1a2a3e; color: #89b4fa; }
-.layer-label    { font-weight: 700; margin-right: 0.35rem; }
-.ext-link       { display: inline-block; font-size: 0.8rem; color: var(--accent); text-decoration: none; margin-top: 0.2rem; }
+.layer-basics { background: #1e3a2a; color: #a6e3a1; }
+.layer-eng { background: #3a2e1a; color: #f9e2af; }
+.layer-arch { background: #1a2a3e; color: #89b4fa; }
+.layer-label { font-weight: 700; margin-right: 0.35rem; }
+.ext-link { display: inline-block; font-size: 0.8rem; color: var(--accent); text-decoration: none; margin-top: 0.2rem; }
 .ext-link:hover { text-decoration: underline; }
-.fix-hint       { background: #1e1e2e; border-left: 3px solid var(--yellow); padding: 0.4rem 0.7rem; border-radius: 0 4px 4px 0; font-size: 0.8rem; color: var(--text); margin-top: 0.5rem; }
+.fix-hint { background: #1e1e2e; border-left: 3px solid var(--yellow); padding: 0.4rem 0.7rem; border-radius: 0 4px 4px 0; font-size: 0.8rem; color: var(--text); margin-top: 0.5rem; }
 code { font-family: var(--mono); font-size: 0.85em; background: #12121e; padding: 0.05em 0.3em; border-radius: 3px; color: var(--yellow); }
-
-/* Badges */
 .badge { display: inline-block; padding: 0.18rem 0.55rem; border-radius: 12px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3px; }
-.badge-high   { background: #4a1a2a; color: var(--red); }
+.badge-high { background: #4a1a2a; color: var(--red); }
 .badge-medium { background: #3e2e10; color: var(--yellow); }
-.badge-low    { background: #1a3220; color: var(--green); }
-.badge-score  { background: var(--surface2); color: var(--accent); font-size: 1rem; font-weight: 700; padding: 0.3rem 0.8rem; border: 1px solid var(--accent); border-radius: var(--radius); }
-
-/* Type Hints */
+.badge-low { background: #1a3220; color: var(--green); }
+.badge-score { background: var(--surface2); color: var(--accent); font-size: 1rem; font-weight: 700; padding: 0.3rem 0.8rem; border: 1px solid var(--accent); border-radius: var(--radius); }
 .type-banner { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.5rem; background: var(--surface2); border-radius: var(--radius); margin-bottom: 1.5rem; border: 1px solid #3a3a55; }
 .score-big { font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1; }
 .score-verdict { color: var(--muted); font-size: 0.88rem; }
-
-/* Code Review */
 .review-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; }
 @media (max-width: 800px) { .review-layout { grid-template-columns: 1fr; } }
 .review-left { background: var(--surface); border-radius: var(--radius); padding: 1.1rem; border: 1px solid #3a3a55; }
@@ -105,23 +85,15 @@ pre.snippet { background: #12121e; border-radius: 5px; padding: 0.7rem; font-siz
 .detail-title { color: var(--accent); font-size: 1rem; font-weight: 700; }
 .detail-body { color: var(--muted); font-size: 0.86rem; line-height: 1.65; margin-bottom: 0.9rem; }
 .hint-box { background: var(--surface2); border-left: 3px solid var(--accent); padding: 0.6rem 0.8rem; border-radius: 0 4px 4px 0; font-size: 0.84rem; color: var(--text); }
-
-/* Performance */
 .perf-card { background: var(--surface2); border-radius: var(--radius); padding: 1.2rem; margin-bottom: 1rem; border: 1px solid #3a3a55; }
 .perf-title { font-weight: 600; color: var(--text); margin-bottom: 0.4rem; }
 .perf-desc { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
-
-/* Next Steps */
 .ns-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 1.2rem; background: var(--surface2); border-radius: var(--radius); margin-bottom: 0.8rem; border: 1px solid #3a3a55; }
 .ns-num { font-size: 1.4rem; font-weight: 800; color: var(--accent); min-width: 2rem; line-height: 1.2; }
 .ns-text a { color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.95rem; }
 .ns-text a:hover { text-decoration: underline; }
 .ns-desc { color: var(--muted); font-size: 0.83rem; margin-top: 0.2rem; }
-
-/* Fallback */
 .fallback { background: #2a1215; color: var(--red); padding: 1rem; border-radius: 6px; font-size: 0.72rem; font-family: var(--mono); overflow-x: auto; white-space: pre-wrap; }
-
-/* Section headings */
 .section-head { font-size: 1.05rem; font-weight: 700; margin-bottom: 1rem; }
 .section-head.green { color: var(--green); }
 .section-head.yellow { color: var(--yellow); }
@@ -129,13 +101,11 @@ pre.snippet { background: #12121e; border-radius: 5px; padding: 0.7rem; font-siz
 </style>
 </head>
 <body>
-
 <header>
   <h1>Code Explorer</h1>
-  <span class="file-badge">main.py</span>
-  <p style="margin-top:0.4rem;">Project: lab8-pygame | Audience: first year CS | Focus: architecture, data flow, type hints, and review priorities</p>
+  <span class="file-badge"><code>main.py</code></span>
+  <p style="margin-top:0.4rem;">Lab8 pygame simulation • 1 Python file analyzed • Updated 2026-04-20</p>
 </header>
-
 <nav class="tab-nav">
 <button class="tab-btn active" onclick="switchTab('architecture', this)">Architecture</button>
 <button class="tab-btn" onclick="switchTab('patterns', this)">Patterns</button>
@@ -144,495 +114,163 @@ pre.snippet { background: #12121e; border-radius: 5px; padding: 0.7rem; font-siz
 <button class="tab-btn" onclick="switchTab('performance', this)">Performance</button>
 <button class="tab-btn" onclick="switchTab('nextsteps', this)">Next Steps</button>
 </nav>
-
 <div id="tab-architecture" class="tab-panel active">
-  <div class="card">
-    <h3>Architecture Overview And Core Functions</h3>
-    <p style="color:var(--muted);font-size:0.9rem;">
-      The project follows a clean single module game loop. The <code>run</code> function drives each frame:
-      measure frame time, poll events, update simulation, then render. Behavior logic is concentrated in
-      <code>update_squares</code>, while <code>draw_squares</code> stays focused on rendering and HUD values.
-      This separation makes code easier to reason about and extend.
-    </p>
-  </div>
-
+  <h2 class="section-head">Architecture Overview</h2>
+  <p style="color:var(--muted);margin-bottom:1.5rem;">This project has a single module with a frame loop, event handling, physics updates, rendering, and lifespan rebirth logic.</p>
   <div class="arch-subnav">
     <button class="arch-btn active" onclick="switchArch('callgraph', this)">Call Graph</button>
-    <button class="arch-btn" onclick="switchArch('depsgraph', this)">Dependency Graph</button>
-    <button class="arch-btn" onclick="switchArch('fullseq', this)">Full Sequence</button>
-    <button class="arch-btn" onclick="switchArch('updateseq', this)">Update Sequence</button>
-    <button class="arch-btn" onclick="switchArch('drawseq', this)">Draw Sequence</button>
-    <button class="arch-btn" onclick="switchArch('flow_squares', this)">Flow Squares</button>
-    <button class="arch-btn" onclick="switchArch('flow_dt', this)">Flow Dt</button>
-    <button class="arch-btn" onclick="switchArch('flow_velocity', this)">Flow Velocity</button>
-    <button class="arch-btn" onclick="switchArch('flow_age', this)">Flow Age</button>
-    <button class="arch-btn" onclick="switchArch('loopstate', this)">Loop State</button>
+    <button class="arch-btn" onclick="switchArch('deps', this)">Module Map</button>
+    <button class="arch-btn" onclick="switchArch('seqfull', this)">Full Sequence</button>
+    <button class="arch-btn" onclick="switchArch('seqframe', this)">Frame Sequence</button>
+    <button class="arch-btn" onclick="switchArch('seqsteer', this)">Steering Sequence</button>
+    <button class="arch-btn" onclick="switchArch('data_squares', this)">Data Squares</button>
+    <button class="arch-btn" onclick="switchArch('data_dt', this)">Data Dt</button>
+    <button class="arch-btn" onclick="switchArch('data_age', this)">Data Age</button>
   </div>
-
-  <div id="arch-callgraph" class="arch-panel active">
-    <div class="diag-title">Call Graph</div>
-    <div class="diag-container" id="diag-callgraph"></div>
-    <div class="diag-caption">The frame pipeline consistently runs event handling, update, and draw in fixed order.</div>
-  </div>
-
-  <div id="arch-depsgraph" class="arch-panel">
-    <div class="diag-title">Dependency Graph</div>
-    <div class="diag-container" id="diag-depsgraph"></div>
-    <div class="diag-caption">The single local file imports random, typing, and pygame dependencies.</div>
-  </div>
-
-  <div id="arch-fullseq" class="arch-panel">
-    <div class="diag-title">Full Frame Sequence</div>
-    <div class="diag-container" id="diag-fullseq"></div>
-    <div class="diag-caption">Every frame collects input, updates all squares, and renders diagnostics to screen.</div>
-  </div>
-
-  <div id="arch-updateseq" class="arch-panel">
-    <div class="diag-title">Update Sequence</div>
-    <div class="diag-container" id="diag-updateseq"></div>
-    <div class="diag-caption">Update logic applies flee force, jitter, movement, boundary bounces, and rebirth checks.</div>
-  </div>
-
-  <div id="arch-drawseq" class="arch-panel">
-    <div class="diag-title">Draw Sequence</div>
-    <div class="diag-container" id="diag-drawseq"></div>
-    <div class="diag-caption">Rendering draws each square surface, computes HUD text, then flips the display.</div>
-  </div>
-
-  <div id="arch-flow_squares" class="arch-panel">
-    <div class="diag-title">Data Flow For Squares</div>
-    <div class="diag-container" id="diag-flow_squares"></div>
-    <div class="diag-caption">The squares collection is initialized once and then updated and rendered every frame.</div>
-  </div>
-
-  <div id="arch-flow_dt" class="arch-panel">
-    <div class="diag-title">Data Flow For Dt</div>
-    <div class="diag-container" id="diag-flow_dt"></div>
-    <div class="diag-caption">Delta time controls force and movement scaling for frame rate independent behavior.</div>
-  </div>
-
-  <div id="arch-flow_velocity" class="arch-panel">
-    <div class="diag-title">Data Flow For Velocity</div>
-    <div class="diag-container" id="diag-flow_velocity"></div>
-    <div class="diag-caption">Velocity starts random, is changed by flee and jitter, then capped and reflected on bounce.</div>
-  </div>
-
-  <div id="arch-flow_age" class="arch-panel">
-    <div class="diag-title">Data Flow For Age</div>
-    <div class="diag-container" id="diag-flow_age"></div>
-    <div class="diag-caption">Age increases each frame and triggers rebirth when lifespan threshold is reached.</div>
-  </div>
-
-  <div id="arch-loopstate" class="arch-panel">
-    <div class="diag-title">Loop State Diagram</div>
-    <div class="diag-container" id="diag-loopstate"></div>
-    <div class="diag-caption">Optional state view showing loop continuation and termination on quit conditions.</div>
-  </div>
+  <div id="arch-callgraph" class="arch-panel active"><div class="diag-title">Call Graph</div><div class="diag-container" id="diag-callgraph"></div><div class="diag-caption">Shows how the top-level loop calls setup, input handling, physics, and drawing helpers.</div></div>
+  <div id="arch-deps" class="arch-panel"><div class="diag-title">Dependency Graph</div><div class="diag-container" id="diag-deps"></div><div class="diag-caption">Maps main.py to pygame and Python stdlib modules used for randomness and type hints.</div></div>
+  <div id="arch-seqfull" class="arch-panel"><div class="diag-title">Full Runtime Sequence</div><div class="diag-container" id="diag-seqfull"></div><div class="diag-caption">End-to-end startup and steady-state loop behavior from run to quit.</div></div>
+  <div id="arch-seqframe" class="arch-panel"><div class="diag-title">Per Frame Sequence</div><div class="diag-container" id="diag-seqframe"></div><div class="diag-caption">Focuses on the per-frame path: input check, dt update, simulation update, then render.</div></div>
+  <div id="arch-seqsteer" class="arch-panel"><div class="diag-title">Steering Sequence</div><div class="diag-container" id="diag-seqsteer"></div><div class="diag-caption">Shows nearest-target lookup and force application inside update_squares.</div></div>
+  <div id="arch-data_squares" class="arch-panel"><div class="diag-title">Data Flow For squares</div><div class="diag-container" id="diag-data_squares"></div><div class="diag-caption">squares is created once, mutated each frame, and rendered every frame.</div></div>
+  <div id="arch-data_dt" class="arch-panel"><div class="diag-title">Data Flow For dt</div><div class="diag-container" id="diag-data_dt"></div><div class="diag-caption">dt starts from clock.tick and scales velocity, jitter time, and age progression.</div></div>
+  <div id="arch-data_age" class="arch-panel"><div class="diag-title">Data Flow For age</div><div class="diag-container" id="diag-data_age"></div><div class="diag-caption">age is initialized at birth, incremented per frame, then used for death and rebirth.</div></div>
+  <div class="card" style="margin-top:1.5rem;"><h3>Core Function Explanations</h3><p style="color:var(--muted);margin-bottom:0.7rem;"><code>run</code> is the orchestrator. <code>update_squares</code> is the physics engine. <code>draw_squares</code> handles rendering and stats text.</p><p style="color:var(--muted);margin-bottom:0.7rem;"><code>find_closest_big</code> and <code>find_closest_small</code> perform nearest-neighbor scans. <code>compute_flee_vector</code> and <code>compute_chase_vector</code> convert relative positions into force vectors.</p><p style="color:var(--muted);">No classes are defined; state is represented as mutable dictionaries for each square.</p></div>
 </div>
-
-<div id="tab-patterns" class="tab-panel">
-  <div class="two-col">
-    <div>
-      <div class="section-head green">Good Patterns</div>
-
-      <div class="pattern-card">
-        <div class="pattern-header"><span class="pattern-icon">✅</span><span class="pattern-title">Game Loop Separation</span></div>
-        <div class="pattern-desc">The code separates setup, event polling, simulation, and rendering into dedicated functions.</div>
-        <div class="pattern-layers">
-          <div class="layer layer-basics"><span class="layer-label">Basics:</span>Each function has a clear role.</div>
-          <div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span>Readability improves because frame flow is explicit.</div>
-          <div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span>This maps to a classic update then render engine pipeline.</div>
-        </div>
-        <a class="ext-link" href="https://www.pygame.org/docs/tut/newbieguide.html" target="_blank" rel="noopener">Reference: Pygame loop guide</a>
-      </div>
-
-      <div class="pattern-card">
-        <div class="pattern-header"><span class="pattern-icon">✅</span><span class="pattern-title">Centralized Constants</span></div>
-        <div class="pattern-desc">Screen size, speed bounds, jitter, and lifespan limits are defined once at module top.</div>
-        <div class="pattern-layers">
-          <div class="layer layer-basics"><span class="layer-label">Basics:</span>Tuning values are easy to find.</div>
-          <div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span>This reduces hard coded values in behavior logic.</div>
-          <div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span>Constants form a stable configuration boundary.</div>
-        </div>
-        <a class="ext-link" href="https://peps.python.org/pep-0008/" target="_blank" rel="noopener">Reference: PEP 8 constants</a>
-      </div>
-
-      <div class="pattern-card">
-        <div class="pattern-header"><span class="pattern-icon">✅</span><span class="pattern-title">Dt Driven Motion</span></div>
-        <div class="pattern-desc">Velocity and position updates multiply by frame delta time instead of fixed increments.</div>
-        <div class="pattern-layers">
-          <div class="layer layer-basics"><span class="layer-label">Basics:</span>Objects move similarly across different frame rates.</div>
-          <div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span>This prevents speed changes when FPS varies.</div>
-          <div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span>Simulation time is decoupled from render timing.</div>
-        </div>
-        <a class="ext-link" href="https://www.pygame.org/docs/ref/time.html" target="_blank" rel="noopener">Reference: Pygame time docs</a>
-      </div>
-    </div>
-
-    <div>
-      <div class="section-head yellow">Potential Issues</div>
-
-      <div class="pattern-card">
-        <div class="pattern-header"><span class="pattern-icon">⚠️</span><span class="pattern-title">Quadratic Target Search</span></div>
-        <div class="pattern-desc">Each square scans all others for the closest bigger square, which is O n squared per frame.</div>
-        <div class="pattern-layers">
-          <div class="layer layer-basics"><span class="layer-label">Basics:</span>Performance drops faster when square count grows.</div>
-          <div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span>Spatial partitioning limits unnecessary checks.</div>
-          <div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span>Add broad phase filtering before nearest selection.</div>
-        </div>
-        <div class="fix-hint">Improvement hint: Use a simple grid hash for nearby candidate lookup.</div>
-        <a class="ext-link" href="https://en.wikipedia.org/wiki/Spatial_hashing" target="_blank" rel="noopener">Reference: Spatial hashing</a>
-      </div>
-
-      <div class="pattern-card">
-        <div class="pattern-header"><span class="pattern-icon">⚠️</span><span class="pattern-title">Loose Square Schema</span></div>
-        <div class="pattern-desc">Square state is a generic dictionary, so required fields and types are not enforced.</div>
-        <div class="pattern-layers">
-          <div class="layer layer-basics"><span class="layer-label">Basics:</span>Typos in keys can fail at runtime.</div>
-          <div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span>TypedDict or dataclass improves tooling support.</div>
-          <div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span>A stable state model supports future features safely.</div>
-        </div>
-        <div class="fix-hint">Improvement hint: Replace Dict with a concrete Square type definition.</div>
-        <a class="ext-link" href="https://docs.python.org/3/library/typing.html#typing.TypedDict" target="_blank" rel="noopener">Reference: TypedDict docs</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="tab-typehints" class="tab-panel">
-  <div class="type-banner">
-    <div class="score-big">3/5</div>
-    <div class="score-verdict">
-      Type hints are present in function signatures, but state modeling still uses broad Dict types without concrete field contracts.
-    </div>
-  </div>
-
-  <div class="two-col">
-    <div class="card">
-      <h3>Strengths</h3>
-      <ul style="padding-left:1.2rem;color:var(--muted);font-size:0.88rem;">
-        <li>Parameter and return annotations are used consistently across public and helper functions.</li>
-        <li>Typed containers like <code>List[Dict]</code> and tuple return types are used for major data paths.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Gaps</h3>
-      <ul style="padding-left:1.2rem;color:var(--muted);font-size:0.88rem;">
-        <li><code>Dict</code> for square records is too generic; key names and value types are not statically verified.</li>
-        <li>Container typing is not concrete enough to catch invalid square field access during refactors.</li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div id="tab-codereview" class="tab-panel">
-  <div class="review-layout">
-    <div class="review-left">
-      <div class="review-item selected" id="ri-0" onclick="selectReview(0)">
-        <div class="ri-titlerow"><span class="ri-title">Flee Vector Uses Top Left</span><span class="badge badge-high">high</span></div>
-        <div class="ri-note">Direction is based on corner coordinates, which skews behavior for mixed sizes.</div>
-      </div>
-      <div class="review-item" id="ri-1" onclick="selectReview(1)">
-        <div class="ri-titlerow"><span class="ri-title">HUD Zero Division Risk</span><span class="badge badge-medium">medium</span></div>
-        <div class="ri-note">Avg X divides by particle count with no empty list guard.</div>
-      </div>
-      <div class="review-item" id="ri-2" onclick="selectReview(2)">
-        <div class="ri-titlerow"><span class="ri-title">Repeated Clamp Logic</span><span class="badge badge-medium">medium</span></div>
-        <div class="ri-note">Speed capping appears in two branches inside update.</div>
-      </div>
-      <div class="review-item" id="ri-3" onclick="selectReview(3)">
-        <div class="ri-titlerow"><span class="ri-title">Quadratic Neighbor Search</span><span class="badge badge-medium">medium</span></div>
-        <div class="ri-note">Per frame nearest search scales poorly as square count increases.</div>
-      </div>
-      <div class="review-item" id="ri-4" onclick="selectReview(4)">
-        <div class="ri-titlerow"><span class="ri-title">Generic Dictionary Types</span><span class="badge badge-low">low</span></div>
-        <div class="ri-note">Type safety is weaker than it could be with a concrete state model.</div>
-      </div>
-    </div>
-    <div class="review-right" id="review-detail-panel"></div>
-  </div>
-</div>
-
-<div id="tab-performance" class="tab-panel">
-  <div class="two-col">
-    <div>
-      <div class="section-head green">Performance Wins</div>
-
-      <div class="perf-card">
-        <div class="perf-title">Frame Time Scaling</div>
-        <div class="perf-desc">Motion uses dt, so speed remains stable across different machines and frame rates.</div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-title">Velocity Guardrails</div>
-        <div class="perf-desc">Speed clamping prevents extreme values that could destabilize movement updates.</div>
-      </div>
-    </div>
-
-    <div>
-      <div class="section-head red">Performance Risks</div>
-
-      <div class="perf-card">
-        <div class="perf-title">Nearest Search Cost</div>
-        <div class="perf-desc">find_closest_big loops through all squares for each square every frame, giving O n squared cost.</div>
-      </div>
-
-      <div class="perf-card">
-        <div class="perf-title">Surface Allocation Churn</div>
-        <div class="perf-desc">draw_squares allocates a new Surface per square per frame, creating extra allocation overhead.</div>
-      </div>
-    </div>
-  </div>
-
-  <div style="margin-top:1.2rem;display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
-    <span class="badge-score">4 / 6</span>
-    <span style="color:var(--muted);font-size:0.88rem;">Verdict: frame scaling is solid, but search and allocation overhead will limit high object counts.</span>
-  </div>
-</div>
-
-<div id="tab-nextsteps" class="tab-panel">
-  <div class="ns-item">
-    <div class="ns-num">1</div>
-    <div class="ns-text">
-      <a href="https://docs.python.org/3/library/typing.html" target="_blank" rel="noopener">Python Typing Module</a>
-      <div class="ns-desc">Use this to move from generic Dict records to explicit square models.</div>
-    </div>
-  </div>
-
-  <div class="ns-item">
-    <div class="ns-num">2</div>
-    <div class="ns-text">
-      <a href="https://docs.python.org/3/library/dataclasses.html" target="_blank" rel="noopener">Dataclasses In Python</a>
-      <div class="ns-desc">A dataclass can improve state readability and reduce key typo errors.</div>
-    </div>
-  </div>
-
-  <div class="ns-item">
-    <div class="ns-num">3</div>
-    <div class="ns-text">
-      <a href="https://www.pygame.org/docs/ref/surface.html" target="_blank" rel="noopener">Pygame Surface Docs</a>
-      <div class="ns-desc">Use cached surfaces or direct draw paths to reduce per frame allocations.</div>
-    </div>
-  </div>
-
-  <div class="ns-item">
-    <div class="ns-num">4</div>
-    <div class="ns-text">
-      <a href="https://en.wikipedia.org/wiki/Spatial_hashing" target="_blank" rel="noopener">Spatial Hashing Overview</a>
-      <div class="ns-desc">Improve nearest target lookup by querying local buckets instead of all objects.</div>
-    </div>
-  </div>
-
-  <div class="ns-item">
-    <div class="ns-num">5</div>
-    <div class="ns-text">
-      <a href="https://refactoring.guru/smells/duplicate-code" target="_blank" rel="noopener">Duplicate Code Smell</a>
-      <div class="ns-desc">Extract shared velocity clamping logic into one helper for maintainability.</div>
-    </div>
-  </div>
-</div>
-
+<div id="tab-patterns" class="tab-panel"><div class="two-col"><div><h2 class="section-head green">Three Good Patterns</h2><div class="pattern-card"><div class="pattern-header"><span class="pattern-icon">A</span><span class="pattern-title">Function Decomposition</span></div><div class="pattern-desc">Input, update, draw, and creation are split into focused helpers.</div><div class="pattern-layers"><div class="layer layer-basics"><span class="layer-label">Basics:</span> Smaller functions are easier to read and debug.</div><div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span> Isolated responsibilities reduce regression risk during edits.</div><div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span> The module behaves like a mini game loop pipeline with clear phases.</div></div><a href="https://en.wikipedia.org/wiki/Separation_of_concerns" class="ext-link">Reference: Separation of concerns</a></div><div class="pattern-card"><div class="pattern-header"><span class="pattern-icon">B</span><span class="pattern-title">Config Constants</span></div><div class="pattern-desc">Simulation knobs are centralized at module top instead of scattered literals.</div><div class="pattern-layers"><div class="layer layer-basics"><span class="layer-label">Basics:</span> You can tune behavior quickly.</div><div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span> Avoids duplicated magic values and mismatch bugs.</div><div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span> Ready to migrate into config files later.</div></div><a href="https://refactoring.guru/replace-magic-numbers-with-symbolic-constants" class="ext-link">Reference: Symbolic constants</a></div><div class="pattern-card"><div class="pattern-header"><span class="pattern-icon">C</span><span class="pattern-title">Lifecycle Rebirth Pattern</span></div><div class="pattern-desc">Objects age out and are replaced, keeping population stable.</div><div class="pattern-layers"><div class="layer layer-basics"><span class="layer-label">Basics:</span> The scene stays active without manual resets.</div><div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span> Reverse-index removal prevents in-loop list corruption.</div><div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span> A reusable pattern for entity lifecycle systems.</div></div><a href="https://en.wikipedia.org/wiki/Life_cycle_assessment" class="ext-link">Reference: Lifecycle concept</a></div></div><div><h2 class="section-head red">Two Potential Issues</h2><div class="pattern-card" style="border-left:3px solid var(--red);"><div class="pattern-header"><span class="pattern-icon">1</span><span class="pattern-title">Nested Chase Condition</span></div><div class="pattern-desc">Chasing is nested under closest_big check, so a square chases only when a larger threat exists.</div><div class="pattern-layers"><div class="layer layer-basics"><span class="layer-label">Basics:</span> Behavior can look inconsistent and hard to reason about.</div><div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span> This couples two independent steering rules accidentally.</div><div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span> Mixed control paths reduce predictability of AI behavior.</div></div><div class="fix-hint">Improvement hint: evaluate flee and chase as two separate branches per square, then combine forces.</div></div><div class="pattern-card" style="border-left:3px solid var(--red);"><div class="pattern-header"><span class="pattern-icon">2</span><span class="pattern-title">Quadratic Neighbor Scan</span></div><div class="pattern-desc">Nearest-neighbor searches loop across the full square list repeatedly every frame.</div><div class="pattern-layers"><div class="layer layer-basics"><span class="layer-label">Basics:</span> Runtime cost grows quickly as particle count increases.</div><div class="layer layer-eng"><span class="layer-label">Engineering Insight:</span> Spatial hashing can reduce checks to nearby buckets.</div><div class="layer layer-arch"><span class="layer-label">Architecture Insight:</span> This is the main scaling limit for larger simulations.</div></div><div class="fix-hint">Improvement hint: introduce a uniform grid index and query local cells only.</div></div></div></div></div>
+<div id="tab-typehints" class="tab-panel"><h2 class="section-head">Type Hints Audit</h2><div class="type-banner"><div class="score-big">4 / 5</div><div><div style="font-size:1rem;font-weight:600;color:var(--text);">Strong Coverage</div><div class="score-verdict">Most functions include parameter and return hints, but entity dictionaries remain loosely typed.</div></div></div><div class="two-col"><div><h3 class="section-head green">Strengths</h3><div class="pattern-card"><div class="pattern-title">Function Signatures Annotated</div><div class="pattern-desc" style="margin-bottom:0.5rem;">Core functions use clear input and return type annotations, improving readability and tool support.</div></div><div class="pattern-card"><div class="pattern-title">Optional Return Expressed</div><div class="pattern-desc" style="margin-bottom:0.5rem;">Nearest-match functions explicitly return <code>Dict | None</code>, which documents missing-match behavior.</div></div></div><div><h3 class="section-head yellow">Gaps</h3><div class="pattern-card"><div class="pattern-title">Untyped Dictionary Shape</div><div class="pattern-desc" style="margin-bottom:0.5rem;">Using plain <code>Dict</code> hides expected keys and value types from static checking.</div></div><div class="pattern-card"><div class="pattern-title">Generic Containers Too Broad</div><div class="pattern-desc" style="margin-bottom:0.5rem;">Prefer <code>TypedDict</code> or <code>dataclass</code> based entities to tighten contracts.</div></div></div></div></div>
+<div id="tab-codereview" class="tab-panel"><h2 class="section-head">Code Review Findings</h2><div class="review-layout"><div class="review-left"><div class="review-item selected" id="ri-0" onclick="selectReview(0)"><div class="ri-titlerow"><span class="ri-title">Chase Branch Coupling</span><span class="badge badge-high">high</span></div><div class="ri-note">Correctness and behavior risk</div></div><div class="review-item" id="ri-1" onclick="selectReview(1)"><div class="ri-titlerow"><span class="ri-title">Zero Count Division Risk</span><span class="badge badge-medium">medium</span></div><div class="ri-note">Potential runtime failure path</div></div><div class="review-item" id="ri-2" onclick="selectReview(2)"><div class="ri-titlerow"><span class="ri-title">Dictionary Entity Model</span><span class="badge badge-medium">medium</span></div><div class="ri-note">Maintainability and type-safety gap</div></div><div class="review-item" id="ri-3" onclick="selectReview(3)"><div class="ri-titlerow"><span class="ri-title">Quadratic Neighbor Lookups</span><span class="badge badge-medium">medium</span></div><div class="ri-note">Performance bottleneck in hot path</div></div><div class="review-item" id="ri-4" onclick="selectReview(4)"><div class="ri-titlerow"><span class="ri-title">Repeated Speed Clamp Block</span><span class="badge badge-low">low</span></div><div class="ri-note">Duplication impacts maintainability</div></div></div><div class="review-right" id="review-detail-panel"></div></div></div>
+<div id="tab-performance" class="tab-panel"><h2 class="section-head">Performance Notes</h2><div class="two-col"><div><h3 class="section-head green">Wins</h3><div class="perf-card"><div class="perf-title">Fixed Population Size</div><div class="perf-desc">The rebirth model keeps entity count bounded, preventing uncontrolled growth over time.</div></div><div class="perf-card"><div class="perf-title">Simple Arithmetic Updates</div><div class="perf-desc">Most per-entity updates are simple arithmetic operations that are cheap at small scales.</div></div></div><div><h3 class="section-head red">Risks</h3><div class="perf-card"><div class="perf-title">Repeated Full List Scans</div><div class="perf-desc">Nearest neighbor functions produce O(n^2) behavior in the frame loop.</div></div><div class="perf-card"><div class="perf-title">Per Frame Surface Allocation</div><div class="perf-desc">A new surface is created per square each frame, adding avoidable allocation overhead.</div></div></div></div><div style="margin-top:1.2rem;"><span class="badge-score">Score: 3 / 6</span> <span style="color:var(--muted);margin-left:0.6rem;">Main bottleneck is neighbor search in update_squares.</span></div></div>
+<div id="tab-nextsteps" class="tab-panel"><h2 class="section-head">Pedagogical Improvements</h2><div class="ns-item"><div class="ns-num">1</div><div class="ns-text"><a href="https://docs.python.org/3/library/dataclasses.html">Refactor to Dataclass Entities</a><div class="ns-desc">Convert square dictionaries to dataclasses so keys become typed fields.</div></div></div><div class="ns-item"><div class="ns-num">2</div><div class="ns-text"><a href="https://docs.python.org/3/library/typing.html#typing.TypedDict">Introduce TypedDict Contracts</a><div class="ns-desc">If you keep dictionaries, define exact expected keys and value types.</div></div></div><div class="ns-item"><div class="ns-num">3</div><div class="ns-text"><a href="https://www.pygame.org/docs/ref/time.html">Study Delta Time Stability</a><div class="ns-desc">Clamp dt spikes and compare behavior with fixed-step update loops.</div></div></div><div class="ns-item"><div class="ns-num">4</div><div class="ns-text"><a href="https://en.wikipedia.org/wiki/Spatial_hashing">Learn Spatial Hashing</a><div class="ns-desc">Use grid bucketing to reduce neighbor checks and scale particle counts.</div></div></div><div class="ns-item"><div class="ns-num">5</div><div class="ns-text"><a href="https://docs.python.org/3/library/cProfile.html">Profile Before Optimizing</a><div class="ns-desc">Measure actual hotspots to validate each optimization idea.</div></div></div></div>
 <script>
-// ── Tab switching ──
 function switchTab(name, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
 }
-
-// ── Architecture sub-tabs ──
 function switchArch(name, btn) {
   document.querySelectorAll('.arch-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.arch-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('arch-' + name).classList.add('active');
   btn.classList.add('active');
 }
-
-// ── Code Review ──
 const reviewItems = [
-  {
-    id: 0,
-    title: 'Flee Vector Uses Top Left',
-    severity: 'high',
-    snippet: `dx = small["x"] - big["x"]\ndy = small["y"] - big["y"]\n\ndist = (dx * dx + dy * dy) ** 0.5`,
-    shortNote: 'Direction is based on top left corners instead of shape centers.',
-    fullExplanation: 'Flee force currently compares top left coordinates of two squares.\nWhen square sizes differ, corner based direction can point away from a less representative location.\nUsing center coordinates gives more physically intuitive separation behavior.',
-    improvementHint: 'Compute cx and cy as x plus size over two for both squares before distance math.'
-  },
-  {
-    id: 1,
-    title: 'HUD Zero Division Risk',
-    severity: 'medium',
-    snippet: `particle_count = len(squares)\navg_x = sum(sq["x"] for sq in squares) / particle_count`,
-    shortNote: 'Avg X computation assumes squares is never empty.',
-    fullExplanation: 'The current lifecycle keeps particle count stable, but future edits may permit empty states.\nIf squares becomes empty, the draw path raises division by zero and the game loop breaks.\nA defensive fallback makes rendering robust for all states.',
-    improvementHint: 'Guard with if particle_count > 0 else 0 for the average computation.'
-  },
-  {
-    id: 2,
-    title: 'Repeated Clamp Logic',
-    severity: 'medium',
-    snippet: `speed = (sq["vx"] ** 2 + sq["vy"] ** 2) ** 0.5\nif speed > sq["max_speed"]:\n    scale = sq["max_speed"] / speed\n    sq["vx"] *= scale\n    sq["vy"] *= scale`,
-    shortNote: 'The same speed cap block appears after flee and jitter updates.',
-    fullExplanation: 'Duplicate logic can drift over time if one branch changes and the other does not.\nThis increases maintenance burden and risk of inconsistent behavior.\nOne helper function makes updates clearer and easier to test.',
-    improvementHint: 'Extract a clamp_square_speed helper and call it in both locations.'
-  },
-  {
-    id: 3,
-    title: 'Quadratic Neighbor Search',
-    severity: 'medium',
-    snippet: `for index, sq in enumerate(squares):\n    closest_big = find_closest_big(sq, squares)\n\nfor other in squares:\n    if other is square:\n        continue`,
-    shortNote: 'Closest target lookup performs all pairs comparisons each frame.',
-    fullExplanation: 'Per frame nearest larger target search is O n squared in the number of squares.\nThis is fine at small scale but will become a bottleneck as entity count rises.\nA simple grid based broad phase can reduce comparisons significantly.',
-    improvementHint: 'Bucket squares into screen cells and only compare nearby buckets.'
-  },
-  {
-    id: 4,
-    title: 'Generic Dictionary Types',
-    severity: 'low',
-    snippet: `def create_square() -> Dict:\n    return {\n        "x": x,\n        "y": y,\n        "vx": vx\n    }`,
-    shortNote: 'Dict typing does not enforce required keys and value types.',
-    fullExplanation: 'Function signatures use hints, but state shape remains loosely typed through Dict.\nStatic tools cannot guarantee all required fields exist and hold the expected types.\nA concrete state model would improve type safety and IDE guidance.',
-    improvementHint: 'Define SquareState via TypedDict or dataclass and annotate all square lists accordingly.'
-  }
+  { id: 0, title: "Chase Branch Coupling", severity: "high", snippet: "closest_big = find_closest_big(sq, squares)\nif closest_big is not None:\n    fx, fy = compute_flee_vector(sq, closest_big)\n    sq[\"vx\"] += fx * dt\n    sq[\"vy\"] += fy * dt\n\n    closest_small = find_closest_small(sq, squares)\n    if closest_small is not None:\n        fx, fy = compute_chase_vector(sq, closest_small)", shortNote: "Chasing currently depends on finding a larger square first.", fullExplanation: "The chase block is nested inside the closest_big condition. That means a square can only chase smaller squares when a larger one is also present. This likely mixes two behaviors that should be independent and can produce surprising movement.", improvementHint: "Compute flee and chase contributions in separate if blocks, then combine velocity updates each frame." },
+  { id: 1, title: "Zero Count Division Risk", severity: "medium", snippet: "particle_count = len(squares)\navg_x = sum(sq[\"x\"] for sq in squares) / particle_count", shortNote: "If particle_count becomes zero, avg_x division will fail.", fullExplanation: "The current configuration usually keeps at least one square alive, but the code path assumes a non-empty list. A future config change such as NUM_SQUARES = 0 or temporary empty state would raise a division error.", improvementHint: "Guard with a conditional: avg_x = 0 if particle_count == 0 else sum_x / particle_count." },
+  { id: 2, title: "Dictionary Entity Model", severity: "medium", snippet: "def create_square() -> Dict:\n    return {\n        \"x\": x,\n        \"y\": y,\n        \"vx\": vx,\n        \"vy\": vy,\n        \"size\": size\n    }", shortNote: "Broad Dict typing hides expected structure and key contracts.", fullExplanation: "Using plain dictionaries for entities increases typo risk and weakens static analysis. A misspelled key becomes a runtime error instead of a lint or type-check signal.", improvementHint: "Use TypedDict or dataclass to define explicit fields and improve editor support." },
+  { id: 3, title: "Quadratic Neighbor Lookups", severity: "medium", snippet: "for index, sq in enumerate(squares):\n    closest_big = find_closest_big(sq, squares)\n    closest_small = find_closest_small(sq, squares)", shortNote: "Nearest target scans repeat over the list per entity per frame.", fullExplanation: "The update loop calls closest-neighbor scans repeatedly, producing O(n^2) cost in the hottest code path. This is manageable at small n but becomes a scaling problem as the simulation grows.", improvementHint: "Introduce spatial bucketing so each square checks nearby candidates only." },
+  { id: 4, title: "Repeated Speed Clamp Block", severity: "low", snippet: "speed = (sq[\"vx\"] ** 2 + sq[\"vy\"] ** 2) ** 0.5\nif speed > sq[\"max_speed\"]:\n    scale = sq[\"max_speed\"] / speed\n    sq[\"vx\"] *= scale\n    sq[\"vy\"] *= scale", shortNote: "The same clamp logic appears in multiple places.", fullExplanation: "Duplicated logic is harder to keep consistent. A single helper would reduce maintenance cost and simplify future tuning.", improvementHint: "Extract clamp_velocity(sq) and call it after each force application." }
 ];
-
-function escH(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
+function escH(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;'); }
 function selectReview(id) {
   document.querySelectorAll('.review-item').forEach(el => el.classList.remove('selected'));
   document.getElementById('ri-' + id).classList.add('selected');
   const item = reviewItems[id];
   const sevClass = 'badge-' + item.severity;
   const body = item.fullExplanation.replace(/\n/g, '<br>');
-  document.getElementById('review-detail-panel').innerHTML = `
-    <div>
-      <div class="detail-head">
-        <span class="detail-title">${escH(item.title)}</span>
-        <span class="badge ${escH(sevClass)}">${escH(item.severity)}</span>
-      </div>
-      <div class="detail-body">${body}</div>
-      <pre class="snippet">${escH(item.snippet)}</pre>
-      <div class="hint-box">&#128161; <strong>Improvement:</strong> ${escH(item.improvementHint)}</div>
-    </div>`;
+  document.getElementById('review-detail-panel').innerHTML = `<div><div class="detail-head"><span class="detail-title">${escH(item.title)}</span><span class="badge ${escH(sevClass)}">${escH(item.severity)}</span></div><div class="detail-body">${body}</div><pre class="snippet">${escH(item.snippet)}</pre><div class="hint-box">&#128161; <strong>Improvement:</strong> ${escH(item.improvementHint)}</div></div>`;
 }
-
-// ── Mermaid ──
 mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
-
 const diagrams = {
-  callgraph: String.raw`graph TD
-    n1[run main loop] --> n2[init pygame state]
-    n1 --> n3[create square list]
-    n1 --> n4[tick frame clock]
-    n4 --> n5[read input events]
-    n5 --> n6[update square state]
-    n6 --> n7[draw frame output]
-    n6 --> n8[find bigger target]
-    n8 --> n9[measure point distance]
-    n6 --> n10[compute flee force]`,
-
-  depsgraph: String.raw`graph LR
-    n1[main py file] --> n2[random module api]
-    n1 --> n3[typing module api]
-    n1 --> n4[pygame package api]
-    click n2 href "https://docs.python.org/3/library/random.html" "Open docs"
-    click n3 href "https://docs.python.org/3/library/typing.html" "Open docs"
-    click n4 href "https://www.pygame.org/docs/" "Open docs"`,
-
-  fullseq: String.raw`sequenceDiagram
+callgraph: String.raw`graph TD
+    n1[run loop] --> n2[init pygame]
+    n1 --> n3[create squares]
+    n3 --> n4[create square]
+    n1 --> n5[handle events]
+    n1 --> n6[update squares]
+    n6 --> n7[closest big]
+    n6 --> n8[closest small]
+    n7 --> n9[distance math]
+    n8 --> n9
+    n6 --> n10[flee vector]
+    n6 --> n11[chase vector]
+    n1 --> n12[draw squares]`,
+deps: String.raw`graph LR
+    n1[main module] --> n2[pygame module]
+    n1 --> n3[random module]
+    n1 --> n4[typing module]
+    click n2 href "https://www.pygame.org/docs/" "Open docs"
+    click n3 href "https://docs.python.org/3/library/random.html" "Open docs"
+    click n4 href "https://docs.python.org/3/library/typing.html" "Open docs"`,
+seqfull: String.raw`sequenceDiagram
     participant p1 as Run
-    participant p2 as Clock
+    participant p2 as Init
     participant p3 as Events
     participant p4 as Update
     participant p5 as Draw
-    p1->>p2: tick frame time
-    p2-->>p1: return dt sec
-    p1->>p3: get input list
-    p3-->>p1: return quit flag
-    p1->>p4: update with dt
-    p4-->>p1: return state done
-    p1->>p5: draw current state
-    p5-->>p1: return frame done`,
-
-  updateseq: String.raw`sequenceDiagram
+    p1->>p2: setup once
+    p2-->>p1: ready state
+    loop frame cycle
+      p1->>p3: poll input
+      p3-->>p1: quit flag
+      p1->>p4: step dt
+      p4-->>p1: world state
+      p1->>p5: render frame
+      p5-->>p1: frame done
+    end`,
+seqframe: String.raw`sequenceDiagram
+    participant p1 as Clock
+    participant p2 as Run
+    participant p3 as Events
+    participant p4 as Update
+    participant p5 as Draw
+    p2->>p1: tick fps
+    p1-->>p2: dt value
+    p2->>p3: handle input
+    p3-->>p2: continue flag
+    p2->>p4: update squares
+    p4-->>p2: new positions
+    p2->>p5: draw scene
+    p5-->>p2: present frame`,
+seqsteer: String.raw`sequenceDiagram
     participant p1 as Update
-    participant p2 as Search
-    participant p3 as Flee
-    participant p4 as Jitter
-    participant p5 as Bounds
-    p1->>p2: find close big
-    p2-->>p1: return target
-    p1->>p3: apply flee add
-    p3-->>p1: return velocity
-    p1->>p4: apply jitter add
-    p4-->>p1: return velocity
-    p1->>p5: bounce at walls
-    p5-->>p1: return clamped pos`,
-
-  drawseq: String.raw`sequenceDiagram
-    participant p1 as Draw
-    participant p2 as Surface
-    participant p3 as Font
-    participant p4 as Display
-    p1->>p2: build square surf
-    p2-->>p1: return draw surf
-    p1->>p3: render hud text
-    p3-->>p1: return text surf
-    p1->>p4: flip frame page
-    p4-->>p1: return frame ok`,
-
-  flow_squares: String.raw`graph TD
-    n1[create squares list] --> n2[store in run loop]
-    n2 --> n3[pass to updater]
-    n3 --> n4[mutate item fields]
-    n4 --> n5[pass to renderer]
-    n5 --> n6[show hud values]`,
-
-  flow_dt: String.raw`graph TD
-    n1[read clock tick] --> n2[convert to secs]
-    n2 --> n3[send into update]
-    n3 --> n4[scale flee force]
-    n4 --> n5[scale movement step]
-    n5 --> n6[keep motion stable]`,
-
-  flow_velocity: String.raw`graph TD
-    n1[random speed init] --> n2[apply flee force]
-    n2 --> n3[apply jitter kick]
-    n3 --> n4[clamp max speed]
-    n4 --> n5[update xy pos]
-    n5 --> n6[invert on bounce]`,
-
-  flow_age: String.raw`graph TD
-    n1[new square age] --> n2[add dt value]
-    n2 --> n3[check life span]
-    n3 --> n4[mark dead index]
-    n4 --> n5[pop dead item]
-    n5 --> n6[append new square]`,
-
-  loopstate: String.raw`stateDiagram-v2
-    [*] --> s1
-    s1: setup ready
-    s1 --> s2: loop begin
-    s2: process frame
-    s2 --> s3: continue run
-    s3: loop again
-    s3 --> s2: next frame
-    s2 --> s4: quit signal
-    s4: call quit
-    s4 --> [*]`
+    participant p2 as FindBig
+    participant p3 as FindSmall
+    participant p4 as FleeVec
+    participant p5 as ChaseVec
+    p1->>p2: nearest larger
+    p2-->>p1: target or none
+    p1->>p4: flee force
+    p4-->>p1: force xy
+    p1->>p3: nearest smaller
+    p3-->>p1: target or none
+    p1->>p5: chase force
+    p5-->>p1: force xy`,
+data_squares: String.raw`graph TD
+    n1[create list] --> n2[squares state]
+    n2 --> n3[update pass]
+    n3 --> n4[jitter step]
+    n3 --> n5[bounce step]
+    n3 --> n6[rebirth step]
+    n6 --> n2
+    n2 --> n7[draw pass]`,
+data_dt: String.raw`graph TD
+    n1[clock tick] --> n2[dt value]
+    n2 --> n3[velocity apply]
+    n2 --> n4[jitter timer]
+    n2 --> n5[age update]
+    n3 --> n6[position move]
+    n4 --> n6
+    n5 --> n7[life check]`,
+data_age: String.raw`graph TD
+    n1[birth age] --> n2[age field]
+    n2 --> n3[increment dt]
+    n3 --> n4[life compare]
+    n4 --> n5[mark dead]
+    n5 --> n6[remove entity]
+    n6 --> n7[spawn new]
+    n7 --> n2`
 };
-
 let renderCounter = 0;
-
 async function renderDiagram(key, containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
   const source = diagrams[key];
-  if (!source) { container.innerHTML = '<p style="color:var(--muted)">No diagram source found.</p>'; return; }
+  if (!source) {
+    container.innerHTML = '<p style="color:var(--muted)">No diagram source found.</p>';
+    return;
+  }
   const uid = 'mmd-' + key + '-' + (++renderCounter);
   try {
     const { svg, bindFunctions } = await mermaid.render(uid, source);
@@ -642,13 +280,11 @@ async function renderDiagram(key, containerId) {
     container.innerHTML = '<pre class="fallback">Render failed: ' + err.message + '\n\nSource:\n' + source + '</pre>';
   }
 }
-
 async function renderAll() {
   for (const [key] of Object.entries(diagrams)) {
     await renderDiagram(key, 'diag-' + key);
   }
 }
-
 window.addEventListener('DOMContentLoaded', () => {
   selectReview(0);
   renderAll();

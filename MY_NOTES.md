@@ -55,3 +55,23 @@ If i want smoother behavior during dt spikes, I can clamp dt or use fixed step u
 My rebirth logic is correct, but I could move it into a helper function to make the code cleaner.
 # Interaction with fleeing and jitter
 Lifespan works fine with fleeing and jitter squares die at the end of the frame, which is normal.
+## CHASING FEATURE ##
+I added a new behavior where Bigger squares chase smaller squares(predator-pray effect)
+# How chasing works
+Each square looks for the closest smaller square.
+If it finds one, it moves toward it.only squares that are bigger than others will chase.small squares never chase they only flee.
+# How I implemented it
+I added two new helper functions:
+one to find the closest smaller square and one to compute the chase direction
+Inside update_squares(), I apply the chasing force before the fleeing force so both behaviors work independently.
+## Why chasing improves the simulation
+Big squares behave like predators
+Small squares behave like prey
+Movement becomes more dynamic and interesting
+Fleeing + chasing + jitter together create natural‑looking motion
+This feature adds a new layer of interaction and makes the whole system feel more intentional and alive.
+# What i learned
+I learned how to make bigger squares move toward smaller ones by finding the closest smaller square and pushing the velocity in that direction. I also learned that chasing and fleeing both work correctly as long as they are checked separately. Adding chasing made the movement look more interesting and helped me understand how combining simple rules can create more complex behavior
+# Copilot interaction
+To make sure my chasing feature was working correctly, I asked Copilot a few questions about my code. I checked things like whether my chasing logic made sense, whether it conflicted with the fleeing behavior, and how I could make the chasing movement smoother. Copilot explained how chasing and fleeing should be kept separate, and it also gave suggestions for making the motion feel more natural, such as using a smaller chase strength or adding a detection range. This helped me understand how different forces interact in my simulation and how small changes can make the movement look more realistic
+
