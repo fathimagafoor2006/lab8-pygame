@@ -116,3 +116,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 20-04-2026 15:06
 - **Prompt**: how can I make the chasing smoother or more natural?
 
+### 20-04-2026 17:02
+- **Prompt**: regenerate the code explorer site
+
