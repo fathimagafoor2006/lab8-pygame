@@ -93,6 +93,7 @@ lab8-pygame/
 ├── .venv/
 ├── docs/
 │   └── code_explorer.html
+|   └── update_squares_flowchart.md
 ├── .gitignore
 ├── copilot.usage.png
 ├── JOURNAL.md
