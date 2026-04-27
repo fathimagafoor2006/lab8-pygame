@@ -125,3 +125,6 @@ Automatically captured prompt log. Entries are appended in chronological order (
 ### 22-04-2026 12:35
 - **Prompt**: make a diagram of my update_squares() function that shows the order in which each behavior runs. i want a clear flowchart style breakdown of the logic
 
+### 27-04-2026 10:47
+- **Prompt**: Activate the journal logger agent
+
