@@ -396,3 +396,18 @@
 - **Hook Version**: 1.02
 - **Date**: 27-04-2026 11:26
 - **Prompt**: generate the flash quiz site for this project
+### **New Interaction**
+- **Agent Version**: 2.3
+- **Date**: 27-04-2026 11:31
+- **User**: fathima.gafoor@epita.fr
+- **Prompt**: generate the flash quiz site for this project
+- **CoPilot Mode**: Agent
+- **CoPilot Model**: GPT-5.3-Codex
+- **Socratic Mode**: ON
+- **Changes Made**: Created docs/study_tool.html as a self-contained flashcard and quiz study tool with deterministic data blocks, accessibility-friendly flip interactions, runtime DOM validation, and 15 medium-difficulty project-specific quiz questions.
+- **Context and Reasons for Changes**: The user requested a flash quiz site for the current project, so the generated site is tied directly to main.py evidence with traceable anchors for each learning item.
+
+### **New Interaction**
+- **Hook Version**: 1.02
+- **Date**: 27-04-2026 11:44
+- **Prompt**: analyze this project and produce a lifgt refactoring plan
