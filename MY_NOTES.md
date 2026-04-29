@@ -74,4 +74,5 @@ This feature adds a new layer of interaction and makes the whole system feel mor
 I learned how to make bigger squares move toward smaller ones by finding the closest smaller square and pushing the velocity in that direction. I also learned that chasing and fleeing both work correctly as long as they are checked separately. Adding chasing made the movement look more interesting and helped me understand how combining simple rules can create more complex behavior
 # Copilot interaction
 To make sure my chasing feature was working correctly, I asked Copilot a few questions about my code. I checked things like whether my chasing logic made sense, whether it conflicted with the fleeing behavior, and how I could make the chasing movement smoother. Copilot explained how chasing and fleeing should be kept separate, and it also gave suggestions for making the motion feel more natural, such as using a smaller chase strength or adding a detection range. This helped me understand how different forces interact in my simulation and how small changes can make the movement look more realistic
-
+# ----- #
+I updated my project with the new CoPilot agents,then i used the Architecture Graphs agent to genrate architecture.md and architecture.html and i also used the Flash Quiz site agent to create the quiz page,and Light Refactoring agent to generate the refactoring plan

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Architecture - Lab8 Pygame</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+:root {
+  --bg: #111827;
+  --surface: #1f2937;
+  --surface2: #273244;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #60a5fa;
+  --border: #334155;
+  --code: #0f172a;
+  --radius: 12px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #0f172a 0%, #111827 100%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+header {
+  padding: 2rem 1.5rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(31, 41, 55, 0.82);
+  backdrop-filter: blur(8px);
+}
+main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+h1, h2, h3 { margin: 0 0 0.6rem; }
+h1 { color: var(--accent); font-size: 2rem; }
+p { margin: 0 0 1rem; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.88rem;
+}
+.card {
+  background: rgba(31, 41, 55, 0.92);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+@media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+.diagram {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+}
+.diagram svg { max-width: 100%; height: auto; }
+pre {
+  margin: 0;
+  padding: 1rem;
+  background: var(--code);
+  color: #cbd5e1;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+code {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.08rem 0.35rem;
+  color: #fbbf24;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+ul { margin: 0.5rem 0 0; padding-left: 1.2rem; color: var(--muted); }
+li { margin-bottom: 0.35rem; }
+.note { color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <main style="padding:0;">
+    <h1>Architecture</h1>
+    <p>Single-file Pygame simulation documented from the live implementation in <a href="../main.py">main.py</a>.</p>
+    <div class="meta">
+      <span class="chip">Dependency graph</span>
+      <span class="chip">Runtime flow</span>
+      <span class="chip">Function call graph</span>
+      <span class="chip">Primary sequence</span>
+    </div>
+  </main>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Overview</h2>
+    <p>This project is organized as a single module with a setup function, an event loop, a physics/update step, and a render step. The data model is a list of mutable square dictionaries that are updated in place each frame.</p>
+  </section>
+
+  <section class="card">
+    <h2>Module Dependency Graph</h2>
+    <div class="diagram mermaid">
+graph LR
+    A["main.py"] --> B["pygame"]
+    A --> C["random"]
+    A --> D["typing"]
+    </div>
+    <p class="note">`main.py` imports `pygame` for runtime behavior, `random` for square initialization and jitter, and `typing` for annotations.</p>
+  </section>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Runtime Flow</h2>
+      <div class="diagram mermaid">
+flowchart TD
+    A["Program start"] --> B["run()"]
+    B --> C["init_pygame()"]
+    C --> D["create_squares()"]
+    D --> E["Main loop"]
+    E --> F["clock.tick(FPS)"]
+    F --> G["handle_events()"]
+    G --> H{ "Quit requested?" }
+    H -- "Yes" --> I["pygame.quit()"]
+    H -- "No" --> J["update_squares(squares, dt)"]
+    J --> K["draw_squares(screen, squares, font, clock)"]
+    K --> E
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Function Call Graph</h2>
+      <div class="diagram mermaid">
+graph TD
+    A["run()"] --> B["init_pygame()"]
+    A --> C["create_squares()"]
+    A --> D["handle_events()"]
+    A --> E["update_squares(squares, dt)"]
+    A --> F["draw_squares(screen, squares, font, clock)"]
+    C --> G["create_square()"]
+    E --> H["find_closest_small(square, squares)"]
+    E --> I["find_closest_big(square, squares)"]
+    E --> J["compute_chase_vector(big, small)"]
+    E --> K["compute_flee_vector(small, big)"]
+    H --> L["distance(ax, ay, bx, by)"]
+    I --> L
+    J --> L
+    K --> L
+      </div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Primary Sequence</h2>
+    <div class="diagram mermaid">
+sequenceDiagram
+    participant R as "run()"
+    participant C as "Clock"
+    participant E as "handle_events()"
+    participant U as "update_squares()"
+    participant D as "draw_squares()"
+    participant L as "Lifecycle"
+
+    R->>R: initialize screen, clock, font, and squares
+    loop every frame
+        R->>C: clock.tick(FPS)
+        C-->>R: dt
+        R->>E: poll events
+        alt quit or escape pressed
+            E-->>R: True
+            R->>R: stop loop
+        else keep running
+            E-->>R: False
+            R->>U: update all squares
+            loop each square
+                U->>U: find closest small square
+                alt smaller square exists
+                    U->>U: apply chase force
+                end
+                U->>U: find closest big square
+                alt bigger square exists
+                    U->>U: apply flee force
+                    U->>U: clamp velocity to max_speed
+                end
+                U->>U: apply jitter when timer reaches interval
+                U->>U: move square by velocity * dt
+                U->>U: bounce off window edges
+                U->>U: add dt to age
+                alt age >= life_span
+                    U->>L: mark square for rebirth
+                end
+            end
+            U-->>R: updated squares
+            R->>D: render squares and HUD text
+            D-->>R: frame displayed
+        end
+    end
+    </div>
+    <p class="note">This sequence follows the real frame path in <a href="../main.py">main.py</a>: event handling happens before update, update mutates the entity list in place, and drawing happens last.</p>
+  </section>
+
+  <section class="card">
+    <h2>Data Flow Notes</h2>
+    <ul>
+      <li><code>squares</code> is created once, then mutated by <code>update_squares()</code> and read by <code>draw_squares()</code>.</li>
+      <li><code>dt</code> comes from <code>clock.tick(FPS) / 1000.0</code> and scales velocity, jitter timing, movement, and aging.</li>
+      <li>Rebirth uses reverse-index removal so list mutation does not break iteration.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Key Functions</h2>
+    <ul>
+      <li><code>init_pygame()</code> sets up the display, clock, and font.</li>
+      <li><code>create_square()</code> builds one square with random size, speed, position, color, and lifespan.</li>
+      <li><code>create_squares()</code> creates the initial population.</li>
+      <li><code>handle_events()</code> exits on window close or Escape.</li>
+      <li><code>find_closest_small()</code> and <code>find_closest_big()</code> scan for the nearest smaller or larger square.</li>
+      <li><code>compute_chase_vector()</code> and <code>compute_flee_vector()</code> convert relative positions into normalized steering forces.</li>
+      <li><code>update_squares()</code> applies steering, jitter, movement, bounce, aging, and rebirth.</li>
+      <li><code>draw_squares()</code> renders the scene and HUD text.</li>
+      <li><code>run()</code> owns the application loop.</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Assumptions</h2>
+    <p>The diagrams and notes reflect the current single-module repository state. No extra Python packages or runtime modules are present beyond <a href="../main.py">main.py</a>.</p>
+  </section>
+</main>
+
+<script>
+mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'loose' });
+</script>
+</body>
+</html>

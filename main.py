@@ -9,9 +9,27 @@ This file contains the full implementation with:
 """
 
 import random
-from typing import List, Dict, Tuple
+from typing import List, Dict, Tuple, TypedDict
 
 import pygame
+
+# REFACTORING STEP 1: Define Square type for clarity
+# WHY: TypedDict documents the exact shape of square data.
+#      This helps beginners understand what fields exist,
+#      and typos in key names get caught by linters.
+# CONCEPT: Type annotations + data contracts = safer, more readable code
+class Square(TypedDict):
+    """Square entity with position, velocity, size, steering, and lifecycle data."""
+    x: float
+    y: float
+    vx: float
+    vy: float
+    size: int
+    max_speed: float
+    time_since_jitter: float
+    color: Tuple[int, int, int]
+    age: float
+    life_span: float
 
 # Configuration constants
 SCREEN_WIDTH = 800
@@ -41,7 +59,12 @@ def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock", "pygame.font.F
     return screen, clock, font
 
 
-def create_square() -> Dict:
+def create_square() -> Square:
+    """Create a new square with random properties.
+    
+    REFACTORING: Return type is now Square (TypedDict) instead of Dict.
+    WHY: This makes the function contract explicit and type-safe.
+    """
     size = random.randint(MIN_SIZE, MAX_SIZE)
     max_speed = GLOBAL_MAX_SPEED * (MIN_SIZE / size)
 
@@ -73,8 +96,13 @@ def create_square() -> Dict:
     }
 
 
-def create_squares() -> List[Dict]:
-    squares: List[Dict] = []
+def create_squares() -> List[Square]:
+    """Create initial population of squares.
+    
+    REFACTORING: Return type is now List[Square] for clarity.
+    WHY: Explicit type makes it clear that each element matches the Square contract.
+    """
+    squares: List[Square] = []
     for _ in range(NUM_SQUARES):
         squares.append(create_square())
     return squares
@@ -90,12 +118,128 @@ def handle_events() -> bool:
 
 
 def distance(ax: float, ay: float, bx: float, by: float) -> float:
+    """Euclidean distance between two 2D points.
+    
+    Used for nearest-neighbor lookups during steering behavior.
+    """
     dx = bx - ax
     dy = by - ay
     return (dx * dx + dy * dy) ** 0.5
 
 
-def find_closest_big(square: Dict, squares: List[Dict]) -> Dict | None:
+# REFACTORING STEP 2: Extract speed clamping into a helper.
+# WHY: Duplication is reduced from appearing in two places (flee, jitter)
+#      to one centralized function. Easier to maintain, test, and modify.
+# CONCEPT: DRY principle (Don't Repeat Yourself) = better maintainability.
+def clamp_speed(square: Square) -> None:
+    """Limit square velocity to its max_speed.
+    
+    If speed exceeds max_speed, scale both vx and vy proportionally.
+    This preserves direction while respecting the speed limit.
+    """
+    speed = (square["vx"] ** 2 + square["vy"] ** 2) ** 0.5
+    if speed > square["max_speed"]:
+        # Avoid division by zero
+        if speed == 0:
+            return
+        scale = square["max_speed"] / speed
+        square["vx"] *= scale
+        square["vy"] *= scale
+
+
+# REFACTORING STEP 3: Extract update behaviors into focused helpers.
+# WHY: Breaking update_squares() into smaller functions improves readability
+#      and makes each behavior testable in isolation.
+# CONCEPT: Separation of concerns = each function has one job.
+def apply_chase(square: Square, squares: List[Square], dt: float) -> None:
+    """Apply chase force if a smaller square exists nearby.
+    
+    Bigger squares hunt smaller ones by computing a force toward the
+    nearest smaller square and accumulating it into velocity.
+    """
+    closest_small = find_closest_small(square, squares)
+    if closest_small is not None:
+        force_x, force_y = compute_chase_vector(square, closest_small)
+        square["vx"] += force_x * dt
+        square["vy"] += force_y * dt
+
+
+def apply_flee(square: Square, squares: List[Square], dt: float) -> None:
+    """Apply flee force if a larger square exists nearby.
+    
+    Smaller squares run away by computing a force away from the
+    nearest larger square. After applying the force, we clamp speed.
+    """
+    closest_big = find_closest_big(square, squares)
+    if closest_big is not None:
+        force_x, force_y = compute_flee_vector(square, closest_big)
+        square["vx"] += force_x * dt
+        square["vy"] += force_y * dt
+        # After adding force, ensure we don't exceed max speed
+        clamp_speed(square)
+
+
+def apply_jitter(square: Square, dt: float) -> None:
+    """Apply random velocity perturbation on a timer.
+    
+    Every JITTER_INTERVAL seconds, add random noise to velocity
+    to prevent perfectly straight, predictable motion.
+    """
+    square["time_since_jitter"] += dt
+    if square["time_since_jitter"] >= JITTER_INTERVAL:
+        square["time_since_jitter"] = 0.0
+        square["vx"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
+        square["vy"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
+        # After adding jitter, ensure speed doesn't exceed max
+        clamp_speed(square)
+
+
+def move_and_bounce(square: Square, dt: float) -> None:
+    """Update position and bounce off window edges.
+    
+    Move by velocity, then check boundary conditions.
+    If the square crosses a boundary, snap it back and reverse velocity.
+    """
+    # Update position
+    square["x"] += square["vx"] * dt
+    square["y"] += square["vy"] * dt
+
+    size = square["size"]
+
+    # Bounce off left/right walls
+    if square["x"] < 0:
+        square["x"] = 0
+        square["vx"] *= -1
+    elif square["x"] + size > SCREEN_WIDTH:
+        square["x"] = SCREEN_WIDTH - size
+        square["vx"] *= -1
+
+    # Bounce off top/bottom walls
+    if square["y"] < 0:
+        square["y"] = 0
+        square["vy"] *= -1
+    elif square["y"] + size > SCREEN_HEIGHT:
+        square["y"] = SCREEN_HEIGHT - size
+        square["vy"] *= -1
+
+
+def update_age_and_collect_dead(square: Square, dt: float, index: int, dead_indices: List[int]) -> None:
+    """Increment age and mark for removal if lifespan exceeded.
+    
+    Each square has a random lifespan. When age >= life_span,
+    the square is marked for rebirth (removal and replacement).
+    """
+    square["age"] += dt
+    if square["age"] >= square["life_span"]:
+        dead_indices.append(index)
+
+
+def find_closest_big(square: Square, squares: List[Square]) -> Square | None:
+    """Find nearest square larger than the given square.
+    
+    REFACTORING: Signatures now use Square type instead of Dict.
+    WHY: Type safety ensures callers pass the right data structure.
+    """
     closest = None
     closest_dist = float("inf")
 
@@ -113,7 +257,12 @@ def find_closest_big(square: Dict, squares: List[Dict]) -> Dict | None:
     return closest
 
 
-def find_closest_small(square: Dict, squares: List[Dict]) -> Dict | None:
+def find_closest_small(square: Square, squares: List[Square]) -> Square | None:
+    """Find nearest square smaller than the given square.
+    
+    REFACTORING: Signatures now use Square type instead of Dict.
+    WHY: Type safety ensures callers pass the right data structure.
+    """
     closest = None
     closest_dist = float("inf")
 
@@ -131,7 +280,13 @@ def find_closest_small(square: Dict, squares: List[Dict]) -> Dict | None:
     return closest
 
 
-def compute_flee_vector(small: Dict, big: Dict) -> Tuple[float, float]:
+def compute_flee_vector(small: Square, big: Square) -> Tuple[float, float]:
+    """Compute escape force: normalized direction away from threat, scaled by FLEE_STRENGTH.
+    
+    REFACTORING STEP 4: Renamed fx/fy to force_x/force_y (shown below).
+    WHY: Variable names should describe their purpose, not just be abbreviations.
+    CONCEPT: Self-documenting code reduces bugs and cognitive load.
+    """
     dx = small["x"] - big["x"]
     dy = small["y"] - big["y"]
 
@@ -139,15 +294,23 @@ def compute_flee_vector(small: Dict, big: Dict) -> Tuple[float, float]:
     if dist == 0:
         return 0.0, 0.0
 
+    # Normalize direction vector: divide by distance to get unit vector
     nx = dx / dist
     ny = dy / dist
 
-    fx = nx * FLEE_STRENGTH
-    fy = ny * FLEE_STRENGTH
-    return fx, fy
+    # Scale by flee strength to get final force magnitude
+    force_x = nx * FLEE_STRENGTH
+    force_y = ny * FLEE_STRENGTH
+    return force_x, force_y
 
 
-def compute_chase_vector(big: Dict, small: Dict) -> Tuple[float, float]:
+def compute_chase_vector(big: Square, small: Square) -> Tuple[float, float]:
+    """Compute pursuit force: normalized direction toward prey, scaled by FLEE_STRENGTH.
+    
+    REFACTORING STEP 4: Renamed fx/fy to force_x/force_y (shown below).
+    WHY: Variable names should describe their purpose, not just be abbreviations.
+    CONCEPT: Self-documenting code reduces bugs and cognitive load.
+    """
     dx = small["x"] - big["x"]
     dy = small["y"] - big["y"]
 
@@ -155,86 +318,66 @@ def compute_chase_vector(big: Dict, small: Dict) -> Tuple[float, float]:
     if dist == 0:
         return 0.0, 0.0
 
+    # Normalize direction vector: divide by distance to get unit vector
     nx = dx / dist
     ny = dy / dist
 
-    fx = nx * FLEE_STRENGTH
-    fy = ny * FLEE_STRENGTH
-    return fx, fy
+    # Scale by flee strength (same magnitude as flee force, just opposite direction)
+    force_x = nx * FLEE_STRENGTH
+    force_y = ny * FLEE_STRENGTH
+    return force_x, force_y
 
 
-def update_squares(squares: List[Dict], dt: float) -> None:
-    dead_indices: List[int] = []
+def update_squares(squares: List[Square], dt: float) -> None:
+    """Update all squares for one frame.
+    
+    REFACTORING STEP 3: This function now delegates to focused helpers.
+    WHY: Separation of concerns makes the flow clear and each behavior testable.
+    CONCEPT: Orchestrator pattern = main function coordinates, helpers do work.
+    
+    Execution order (preserved from original):
+    1. Apply chase force (if larger prey nearby)
+    2. Apply flee force (if larger threat nearby)
+    3. Apply jitter (random velocity kicks)
+    4. Update position and bounce
+    5. Age and mark for rebirth
+    6. Rebirth dead squares
+    """
+    dead_indices: List[Square] = []
 
     for index, sq in enumerate(squares):
+        # STEP 1: Chase behavior
+        apply_chase(sq, squares, dt)
 
-        # chasing 
-        closest_small = find_closest_small(sq, squares)
-        if closest_small is not None:
-            fx, fy = compute_chase_vector(sq, closest_small)
-            sq["vx"] += fx * dt
-            sq["vy"] += fy * dt
+        # STEP 2: Flee behavior
+        apply_flee(sq, squares, dt)
 
-        # fleeing
-        closest_big = find_closest_big(sq, squares)
-        if closest_big is not None:
-            fx, fy = compute_flee_vector(sq, closest_big)
-            sq["vx"] += fx * dt
-            sq["vy"] += fy * dt
+        # STEP 3: Jitter (random perturbation)
+        apply_jitter(sq, dt)
 
-            speed = (sq["vx"] ** 2 + sq["vy"] ** 2) ** 0.5
-            if speed > sq["max_speed"]:
-                scale = sq["max_speed"] / speed
-                sq["vx"] *= scale
-                sq["vy"] *= scale
+        # STEP 4: Movement and collision
+        move_and_bounce(sq, dt)
 
-        # jitter
-        sq["time_since_jitter"] += dt
-        if sq["time_since_jitter"] >= JITTER_INTERVAL:
-            sq["time_since_jitter"] = 0.0
-            sq["vx"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
-            sq["vy"] += random.uniform(-JITTER_STRENGTH, JITTER_STRENGTH)
+        # STEP 5: Lifecycle management
+        update_age_and_collect_dead(sq, dt, index, dead_indices)
 
-            speed = (sq["vx"] ** 2 + sq["vy"] ** 2) ** 0.5
-            if speed > sq["max_speed"]:
-                scale = sq["max_speed"] / speed
-                sq["vx"] *= scale
-                sq["vy"] *= scale
-
-        # movement
-        sq["x"] += sq["vx"] * dt
-        sq["y"] += sq["vy"] * dt
-
-        size = sq["size"]
-
-        # bounce left/right
-        if sq["x"] < 0:
-            sq["x"] = 0
-            sq["vx"] *= -1
-        elif sq["x"] + size > SCREEN_WIDTH:
-            sq["x"] = SCREEN_WIDTH - size
-            sq["vx"] *= -1
-
-        # bounce top/bottom
-        if sq["y"] < 0:
-            sq["y"] = 0
-            sq["vy"] *= -1
-        elif sq["y"] + size > SCREEN_HEIGHT:
-            sq["y"] = SCREEN_HEIGHT - size
-            sq["vy"] *= -1
-
-        # life span/age update
-        sq["age"] += dt
-        if sq["age"] >= sq["life_span"]:
-            dead_indices.append(index)
-
-    # rebirth
+    # STEP 6: Rebirth dead squares
+    # REFACTORING STEP 6: Keep rebirth explicit and documented.
+    # WHY: Reverse iteration prevents index corruption during removal.
+    # CONCEPT: Safe list mutation with reverse-index popping (mutation safety).
     for index in reversed(dead_indices):
         squares.pop(index)
         squares.append(create_square())
 
 
-def draw_squares(screen: "pygame.Surface", squares: List[Dict], font: "pygame.font.Font", clock: "pygame.time.Clock") -> None:
+def draw_squares(screen: "pygame.Surface", squares: List[Square], font: "pygame.font.Font", clock: "pygame.time.Clock") -> None:
+    """Render all squares and HUD diagnostics to screen.
+    
+    REFACTORING STEP 5: Added defensive check for zero particle count.
+    WHY: Prevents ZeroDivisionError if particle_count becomes 0.
+         This is defensive programming: handle edge cases gracefully.
+    CONCEPT: Input/state validation = robust, crash-resistant code.
+    """
     screen.fill((0, 0, 0))
 
     for sq in squares:
@@ -247,7 +390,8 @@ def draw_squares(screen: "pygame.Surface", squares: List[Dict], font: "pygame.fo
         screen.blit(surf, rect)
 
     particle_count = len(squares)
-    avg_x = sum(sq["x"] for sq in squares) / particle_count
+    # REFACTORING STEP 5: Guard against division by zero
+    avg_x = 0.0 if particle_count == 0 else sum(sq["x"] for sq in squares) / particle_count
     fps = int(clock.get_fps())
 
     text_surface = font.render(

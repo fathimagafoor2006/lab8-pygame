@@ -73,6 +73,10 @@ Chasing behavior
 - The chasing force is calculated using a direction vector toward the smaller square.
 - This makes the movement feel more dynamic and alive.
 
+Using Copilot Agents
+--------------------
+I updated my project with the new CoPilot agents.Then i used the Architecture Graphs agent to generate architecture.md and architecture.html. I also used the Flash Quiz Site agent to create the quiz page, and the Light Refactoring agent to generate the refactoring plan.
+
 Project structure
 -----------------
 - `main.py`: the complete simulation and rendering loop.
@@ -85,15 +89,23 @@ Project structure
 lab8-pygame/
 ├── .github/
 │   ├── agents/
+│   │   ├── architecture-graphs.agent.md
 │   │   ├── code-explorer-template.html
 │   │   ├── code-explorer.agent.md
+│   │   ├── flash-quiz-site.agent.md
 │   │   └── journal-logger.agent.md
+│   │   ├── light-refactoring.agent.md
 │   ├── hooks/
 │   └── copilot-instructions.md
 ├── .venv/
 ├── docs/
+|   └── architecture.html
+|   └── architecture.md
 │   └── code_explorer.html
+|   └── study_tool.html
 |   └── update_squares_flowchart.md
+├── tmp/
+|   └── main.py
 ├── .gitignore
 ├── copilot.usage.png
 ├── JOURNAL.md

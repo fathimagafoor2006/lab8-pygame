@@ -1,16 +1,4 @@
 ---
-name: journal-logger
-version: 2.3
-enabled: true
-description: |
-  Agent configuration to enable automatic appending of journal entries
-  to the repository `JOURNAL.md` after each user prompt.
----
-
-# Notes
-- This file was created to indicate the repository-level activation
-  of the journal-logger agent.
----
 description: 'Updates the JOURNAL.md file after each prompt.'
 
 tools: [vscode, execute, read, agent, browser, edit, search, web, ms-python.python/getPythonEnvironmentInfo, ms-python.python/getPythonExecutableCommand, ms-python.python/installPythonPackage, ms-python.python/configurePythonEnvironment, todo]
