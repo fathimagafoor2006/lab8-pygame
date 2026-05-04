@@ -374,11 +374,41 @@ def update_squares(squares: List[Square], dt: float) -> None:
         # STEP 5: Lifecycle management
         update_age_and_collect_dead(sq, dt, index, dead_indices)
 
+# Exercise 5: Eating
+    eaten_indices: List[int] = []
+
+    for i in range(len(squares)):
+        for j in range(i + 1, len(squares)):
+            a = squares[i]
+            b = squares[j]
+
+            if check_collision(a, b):
+                if a["size"] > b["size"]:
+                    eaten_indices.append(j)
+                elif b["size"] > a["size"]:
+                    eaten_indices.append(i)
+
+# Combine dead squares + eaten squares
+    all_dead = sorted(set(dead_indices + eaten_indices), reverse=True)
+
+    for index in all_dead:
+        old_size = squares[index]["size"]
+
+        squares.pop(index)
+        new_sq = create_square()
+
+        # keep same size
+        new_sq["size"] = old_size
+        new_sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / old_size)
+
+        squares.append(new_sq)
+    
+
     # STEP 6: Rebirth dead squares
     # REFACTORING STEP 6: Keep rebirth explicit and documented.
     # WHY: Reverse iteration prevents index corruption during removal.
     # CONCEPT: Safe list mutation with reverse-index popping (mutation safety).
-    # Exercise 2:Same size respawn
+    # Exercise 2:Same size respawn, # Exercise 5 Eating
     for index in reversed(dead_indices):
         old_size = squares[index]["size"]
         squares.pop(index)
@@ -386,9 +416,7 @@ def update_squares(squares: List[Square], dt: float) -> None:
         new_sq["size"] = old_size
         new_sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / old_size)
         squares.append(new_sq)
-
-
-
+    
 
 def draw_squares(screen: "pygame.Surface", squares: List[Square], font: "pygame.font.Font", clock: "pygame.time.Clock") -> None:
     """Render all squares and HUD diagnostics to screen.
