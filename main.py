@@ -358,7 +358,7 @@ def update_squares(squares: List[Square], dt: float) -> None:
     5. Age and mark for rebirth
     6. Rebirth dead squares
     """
-    dead_indices: List[Square] = []
+    dead_indices: List[int] = []
 
     for index, sq in enumerate(squares):
         # STEP 1: Chase behavior
@@ -380,17 +380,16 @@ def update_squares(squares: List[Square], dt: float) -> None:
     # REFACTORING STEP 6: Keep rebirth explicit and documented.
     # WHY: Reverse iteration prevents index corruption during removal.
     # CONCEPT: Safe list mutation with reverse-index popping (mutation safety).
+    # Exercise 2:Same size respawn
     for index in reversed(dead_indices):
         old_size = squares[index]["size"]
+        squares.pop(index)
+        new_sq = create_square()
+        new_sq["size"] = old_size
+        new_sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / old_size)
+        squares.append(new_sq)
 
-    squares.pop(index)
-    new_sq = create_square()
 
-    # keep same size
-    new_sq["size"] = old_size
-    new_sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / old_size)
-
-    squares.append(new_sq)
 
 
 def draw_squares(screen: "pygame.Surface", squares: List[Square], font: "pygame.font.Font", clock: "pygame.time.Clock") -> None:
