@@ -14,3 +14,5 @@ When a square moves past one edge of the screen, it reappears on the opposite si
 I added a check_collision(a,b) function that uses pygame.Rect to detect overlap between two squares.Each square is converted into a rectangle using its position and size, and I return True when rectA.colliderect(rectB) is true.
 # Exercise 5
 I detect collisions between squares using check_collision().When two squares collide, the larger one eats the smaller.The eaten square is removed and respawned with the same sizeI collect eaten indices separately and merge them with the normal death list before respawning to avoid index errors.
+# Exercise 6
+I extended the eating behavior so that when a larger square eats a smaller one, the larger squaregrows.  I increase its size by 1 and recompute `max_speed` so that bigger squares move more slowly.  The eaten square is still respawned with the same size as before, following the rules from Exercise 2.

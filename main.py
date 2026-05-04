@@ -383,10 +383,19 @@ def update_squares(squares: List[Square], dt: float) -> None:
             b = squares[j]
 
             if check_collision(a, b):
+                # a eats b
                 if a["size"] > b["size"]:
                     eaten_indices.append(j)
+                # Exercise 6: a grows
+                    a["size"] += 1
+                    a["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / a["size"])
+                # b eats a
                 elif b["size"] > a["size"]:
                     eaten_indices.append(i)
+                # Exercise 6: b grows
+                    b["size"] += 1
+                    b["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / b["size"])
+
 
 # Combine dead squares + eaten squares
     all_dead = sorted(set(dead_indices + eaten_indices), reverse=True)
