@@ -333,6 +333,13 @@ def compute_chase_vector(big: Square, small: Square) -> Tuple[float, float]:
     force_y = ny * FLEE_STRENGTH
     return force_x, force_y
 
+# Exercise 4: Collision Detection
+def check_collision(a: Square, b: Square) -> bool:
+#Return True if two squares overlap using pygame.Rect collision
+    rect_a = pygame.Rect(a["x"], a["y"], a["size"], a["size"])
+    rect_b = pygame.Rect(b["x"], b["y"], b["size"], b["size"])
+    return rect_a.colliderect(rect_b)
+
 
 def update_squares(squares: List[Square], dt: float) -> None:
     """Update all squares for one frame.
