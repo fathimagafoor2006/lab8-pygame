@@ -24,6 +24,6 @@ When active, the program calculates each square’s actual velocity magnitude an
 This test validates that the speed‑clamping logic works correctly.
 # Exercise 9
 I added a visual arrow to each square to show its movement direction. 
-The arrow starts at the square’s center and points in the direction of its velocity vector. Its length is scaled so it remains readable. This helps visualize motion and debugging behaviors.
+The arrow starts at the square’s center and points in the direction of its velocity vector. Its length is scaled so it remains readable. This helps visualize motion and debugging behaviors..
 
 
