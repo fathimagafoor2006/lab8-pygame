@@ -208,34 +208,25 @@ def apply_jitter(square: Square, dt: float) -> None:
         # After adding jitter, ensure speed doesn't exceed max
         clamp_speed(square)
 
-
+# Exercise 3 : Screen Wrapping
 def move_and_bounce(square: Square, dt: float) -> None:
-    """Update position and bounce off window edges.
-    
-    Move by velocity, then check boundary conditions.
-    If the square crosses a boundary, snap it back and reverse velocity.
-    """
-    # Update position
+    """Update position with screen wrapping instead of bouncing."""
     square["x"] += square["vx"] * dt
     square["y"] += square["vy"] * dt
-
     size = square["size"]
 
-    # Bounce off left/right walls
-    if square["x"] < 0:
-        square["x"] = 0
-        square["vx"] *= -1
-    elif square["x"] + size > SCREEN_WIDTH:
-        square["x"] = SCREEN_WIDTH - size
-        square["vx"] *= -1
+    # Wrap horizontally
+    if square["x"] + size < 0:
+        square["x"] = SCREEN_WIDTH
+    elif square["x"] > SCREEN_WIDTH:
+        square["x"] = -size
 
-    # Bounce off top/bottom walls
-    if square["y"] < 0:
-        square["y"] = 0
-        square["vy"] *= -1
-    elif square["y"] + size > SCREEN_HEIGHT:
-        square["y"] = SCREEN_HEIGHT - size
-        square["vy"] *= -1
+    # Wrap vertically
+    if square["y"] + size < 0:
+        square["y"] = SCREEN_HEIGHT
+    elif square["y"] > SCREEN_HEIGHT:
+        square["y"] = -size
+
 
 
 def update_age_and_collect_dead(square: Square, dt: float, index: int, dead_indices: List[int]) -> None:
