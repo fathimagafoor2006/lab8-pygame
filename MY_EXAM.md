@@ -22,5 +22,8 @@ I added a trail feature so each square leaves a visible trace of its past moveme
 I added a global variable TEST_MODE_ON to enable a diagnostic mode that checks whether squares move at their correct speed. 
 When active, the program calculates each square’s actual velocity magnitude and compares it to its max_speed. If the square exceeds its limit, a warning is printed. 
 This test validates that the speed‑clamping logic works correctly.
+# Exercise 9
+I added a visual arrow to each square to show its movement direction. 
+The arrow starts at the square’s center and points in the direction of its velocity vector. Its length is scaled so it remains readable. This helps visualize motion and debugging behaviors.
 
 

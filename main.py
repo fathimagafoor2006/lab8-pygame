@@ -466,6 +466,13 @@ def draw_squares(screen: "pygame.Surface", squares: List[Square], font: "pygame.
 
         rect = surf.get_rect(topleft=(sq["x"], sq["y"]))
         screen.blit(surf, rect)
+    center_x = sq["x"] + sq["size"] / 2
+    center_y = sq["y"] + sq["size"] / 2
+
+    end_x = center_x + sq["vx"] * 0.1
+    end_y = center_y + sq["vy"] * 0.1
+
+    pygame.draw.line(screen, (255, 255, 255), (center_x, center_y), (end_x, end_y), 2)
 
     particle_count = len(squares)
     # REFACTORING STEP 5: Guard against division by zero
