@@ -51,6 +51,9 @@ JITTER_INTERVAL = 0.2
 MIN_LIFE_SPAN = 30.0
 MAX_LIFE_SPAN = 180.0
 
+# Exercise 8
+TEST_MODE_ON = False
+
 
 def init_pygame() -> Tuple["pygame.Surface", "pygame.time.Clock", "pygame.font.Font"]:
     pygame.init()
@@ -373,6 +376,12 @@ def update_squares(squares: List[Square], dt: float) -> None:
 
         # STEP 4: Movement and collision
         move_and_bounce(sq, dt)
+
+        if TEST_MODE_ON:
+            # Exercise 8: Speed Test
+            actual_speed = (sq["vx"] ** 2 + sq["vy"] ** 2) ** 0.5
+            if actual_speed > sq["max_speed"] + 1e-3:
+                print(f"[SpeedTest] Square exceeded max speed: {actual_speed:.2f} > {sq['max_speed']:.2f}")
 
         # Exercise 7: record trail
         sq["trail"].append((sq["x"], sq["y"]))

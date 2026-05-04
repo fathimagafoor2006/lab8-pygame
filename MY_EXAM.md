@@ -18,3 +18,9 @@ I detect collisions between squares using check_collision().When two squares col
 I extended the eating behavior so that when a larger square eats a smaller one, the larger squaregrows.  I increase its size by 1 and recompute `max_speed` so that bigger squares move more slowly.  The eaten square is still respawned with the same size as before, following the rules from Exercise 2.
 # Exercise 7
 I added a trail feature so each square leaves a visible trace of its past movement. I store recent positions in a list called trail and draw them using pygame.draw.lines(). This creates smooth, colorful paths showing each square’s trajectory.
+# Exercise 8
+I added a global variable TEST_MODE_ON to enable a diagnostic mode that checks whether squares move at their correct speed. 
+When active, the program calculates each square’s actual velocity magnitude and compares it to its max_speed. If the square exceeds its limit, a warning is printed. 
+This test validates that the speed‑clamping logic works correctly.
+
+
