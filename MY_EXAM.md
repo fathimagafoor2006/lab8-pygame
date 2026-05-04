@@ -16,3 +16,5 @@ I added a check_collision(a,b) function that uses pygame.Rect to detect overlap 
 I detect collisions between squares using check_collision().When two squares collide, the larger one eats the smaller.The eaten square is removed and respawned with the same sizeI collect eaten indices separately and merge them with the normal death list before respawning to avoid index errors.
 # Exercise 6
 I extended the eating behavior so that when a larger square eats a smaller one, the larger squaregrows.  I increase its size by 1 and recompute `max_speed` so that bigger squares move more slowly.  The eaten square is still respawned with the same size as before, following the rules from Exercise 2.
+# Exercise 7
+I added a trail feature so each square leaves a visible trace of its past movement. I store recent positions in a list called trail and draw them using pygame.draw.lines(). This creates smooth, colorful paths showing each square’s trajectory.

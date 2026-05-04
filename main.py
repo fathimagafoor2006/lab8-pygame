@@ -30,6 +30,8 @@ class Square(TypedDict):
     color: Tuple[int, int, int]
     age: float
     life_span: float
+    trail: List[Tuple[float, float]]  # Exercise 7
+
 
 # Configuration constants
 SCREEN_WIDTH = 800
@@ -93,6 +95,7 @@ def create_square() -> Square:
         "color": color,
         "age": 0.0,
         "life_span": life_span,
+        "trail": [],  # Exercise 7
     }
 
 # Exercise 1: A mix of squares
@@ -371,6 +374,11 @@ def update_squares(squares: List[Square], dt: float) -> None:
         # STEP 4: Movement and collision
         move_and_bounce(sq, dt)
 
+        # Exercise 7: record trail
+        sq["trail"].append((sq["x"], sq["y"]))
+        if len(sq["trail"]) > 50:
+            sq["trail"].pop(0)
+
         # STEP 5: Lifecycle management
         update_age_and_collect_dead(sq, dt, index, dead_indices)
 
@@ -439,6 +447,10 @@ def draw_squares(screen: "pygame.Surface", squares: List[Square], font: "pygame.
 
     for sq in squares:
         size = sq["size"]
+    # Exercise 7: draw trail
+    if len(sq["trail"]) > 1:
+        pygame.draw.lines(screen, sq["color"], False, sq["trail"], 2)
+
 
         surf = pygame.Surface((size, size), pygame.SRCALPHA)
         pygame.draw.rect(surf, sq["color"], (0, 0, size, size))
