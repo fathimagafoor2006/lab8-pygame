@@ -95,16 +95,31 @@ def create_square() -> Square:
         "life_span": life_span,
     }
 
-
+# Exercise 1: A mix of squares
 def create_squares() -> List[Square]:
-    """Create initial population of squares.
-    
-    REFACTORING: Return type is now List[Square] for clarity.
-    WHY: Explicit type makes it clear that each element matches the Square contract.
-    """
     squares: List[Square] = []
-    for _ in range(NUM_SQUARES):
-        squares.append(create_square())
+
+    ### 5 squares of size 25###
+    for _ in range(5):
+        sq = create_square()
+        sq["size"] = 25
+        sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / 25)
+        squares.append(sq)
+
+    # 10 squares of size 10
+    for _ in range(10):
+        sq = create_square()
+        sq["size"] = 10
+        sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / 10)
+        squares.append(sq)
+
+    # 30 squares of size 4
+    for _ in range(30):
+        sq = create_square()
+        sq["size"] = 4
+        sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / 4)
+        squares.append(sq)
+
     return squares
 
 
@@ -366,8 +381,16 @@ def update_squares(squares: List[Square], dt: float) -> None:
     # WHY: Reverse iteration prevents index corruption during removal.
     # CONCEPT: Safe list mutation with reverse-index popping (mutation safety).
     for index in reversed(dead_indices):
-        squares.pop(index)
-        squares.append(create_square())
+        old_size = squares[index]["size"]
+
+    squares.pop(index)
+    new_sq = create_square()
+
+    # keep same size
+    new_sq["size"] = old_size
+    new_sq["max_speed"] = GLOBAL_MAX_SPEED * (MIN_SIZE / old_size)
+
+    squares.append(new_sq)
 
 
 def draw_squares(screen: "pygame.Surface", squares: List[Square], font: "pygame.font.Font", clock: "pygame.time.Clock") -> None:
